@@ -27,9 +27,13 @@
 
 
 
+
+
+
+
 <html
   class="not-ready lg:text-base"
-  style="--bg: #faf8f1"
+  style="--bg: #fbfbfb"
   lang="en-us"
 >
   <head>
@@ -41,7 +45,7 @@
   />
 
   
-  <title>My New Hugo Site</title>
+  <title>LengMou</title>
 
   
   <meta name="theme-color" />
@@ -54,7 +58,7 @@
     name="description"
     content="A personal blog"
   />
-  <meta name="author" content="My New Hugo Site" />
+  <meta name="author" content="Welcome to LM’Log" />
   
 
   
@@ -68,17 +72,56 @@
   
 
   
-   
-  <link rel="preload" as="image" href="https://blog.pydaxing.com/theme.png" />
+     
+  <link rel="preload" as="image" href="https://blog.pydaxing.com/theme.svg" />
 
   
   
   
+  <link rel="preload" as="image" href="http://localhost:1313/favicon.ico" />
+  
   
 
   
   
 
+  
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css"
+  integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI"
+  crossorigin="anonymous"
+/>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js"
+  integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t"
+  crossorigin="anonymous"
+></script>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js"
+  integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+  crossorigin="anonymous"
+></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () =>
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+          ],
+          
+          throwOnError : false
+        })
+    );
+</script>
+
+  
   
   
 
@@ -95,7 +138,7 @@
     rel="alternate"
     type="application/rss&#43;xml"
     href="https://blog.pydaxing.com/index.xml"
-    title="My New Hugo Site"
+    title="LengMou"
   />
   
 
@@ -104,11 +147,11 @@
   
   
   
-  <meta itemprop="name" content="My New Hugo Site">
+  <meta itemprop="name" content="LengMou">
 <meta itemprop="description" content="">
   
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="My New Hugo Site"/>
+<meta name="twitter:title" content="LengMou"/>
 <meta name="twitter:description" content=""/>
 
   
@@ -121,10 +164,10 @@
     <a
       class="-translate-x-[1px] -translate-y-[1px] text-2xl font-semibold"
       href="https://blog.pydaxing.com"
-      >My New Hugo Site</a
+      >LengMou</a
     >
     <div
-      class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]"
+      class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
       role="button"
       aria-label="Dark"
     ></div>
@@ -152,7 +195,7 @@
 
     
     const metaTheme = document.querySelector('meta[name="theme-color"]');
-    const lightBg = '#faf8f1'.replace(/"/g, '');
+    const lightBg = '#fbfbfb'.replace(/"/g, '');
     const setDark = (isDark) => {
       metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
       htmlClass[isDark ? 'add' : 'remove']('dark');
@@ -213,6 +256,28 @@
 
 
 
+<div class="-mt-2 mb-16 flex items-center">
+  
+  <div
+    class="mr-5 shrink-0 rounded-full border-[0.5px] border-black/10 bg-white/50 p-3 shadow dark:bg-white/[15%]"
+  >
+    <img
+      class="my-0 aspect-square w-16 rounded-full !bg-black/5 hover:animate-spin dark:!bg-black/80"
+      src="http://localhost:1313/favicon.ico"
+      alt="Welcome to LM’Log"
+    />
+  </div>
+  
+  
+  <div>
+    <h1 class="mb-2 mt-3 text-[1.6rem] font-bold">Welcome to LM’Log</h1>
+    <div class="break-words">
+      Hi, this is LengMou. I’m documenting my learning notes in this blog. Besides, I’m leading a team on AI Safety at OpenAI.
+    </div>
+  </div>
+  
+</div>
+
 
 
 
@@ -263,7 +328,7 @@
 >
   <div class="mr-auto">
     &copy; 2023
-    <a class="link" href="https://blog.pydaxing.com">My New Hugo Site</a>
+    <a class="link" href="https://blog.pydaxing.com">LengMou</a>
   </div>
   <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
     >Powered by Hugo️️</a
