@@ -31,7 +31,8 @@
       <pubDate>Fri, 15 Sep 2023 18:45:29 +0800</pubDate>
       
       <guid>https://blog.pydaxing.com/post/lengmou/</guid>
-      <description></description>
+      <description>因为$x^2 = 4$，所以$x=2$。
+import numpy as np </description>
     </item>
     
   </channel>
