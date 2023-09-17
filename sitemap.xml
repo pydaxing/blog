@@ -2,32 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://blog.pydaxing.com/tags/haha/</loc>
-    <lastmod>2023-09-15T19:56:33+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.pydaxing.com/tags/hello/</loc>
-    <lastmod>2023-09-15T19:56:33+08:00</lastmod>
+    <loc>https://blog.pydaxing.com/post/20201124_dkt-pytorch/</loc>
+    <lastmod>2020-11-24T18:12:17+00:00</lastmod>
   </url><url>
     <loc>https://blog.pydaxing.com/post/</loc>
-    <lastmod>2023-09-15T19:56:33+08:00</lastmod>
+    <lastmod>2020-11-24T18:12:17+00:00</lastmod>
   </url><url>
     <loc>https://blog.pydaxing.com/tags/</loc>
-    <lastmod>2023-09-15T19:56:33+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.pydaxing.com/post/test/</loc>
-    <lastmod>2023-09-15T19:56:33+08:00</lastmod>
+    <lastmod>2020-11-24T18:12:17+00:00</lastmod>
   </url><url>
     <loc>https://blog.pydaxing.com/</loc>
-    <lastmod>2023-09-15T19:56:33+08:00</lastmod>
+    <lastmod>2020-11-24T18:12:17+00:00</lastmod>
   </url><url>
-    <loc>https://blog.pydaxing.com/post/lengmou/</loc>
-    <lastmod>2023-09-15T18:45:29+08:00</lastmod>
+    <loc>https://blog.pydaxing.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/</loc>
+    <lastmod>2020-11-24T18:12:17+00:00</lastmod>
   </url><url>
-    <loc>https://blog.pydaxing.com/post/xiongdandi/</loc>
-    <lastmod>2022-09-16T01:21:52+08:00</lastmod>
+    <loc>https://blog.pydaxing.com/post/20190428_summercamp/</loc>
+    <lastmod>2019-04-18T20:30:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.pydaxing.com/tags/%E9%9A%8F%E7%AC%94/</loc>
+    <lastmod>2019-04-18T20:30:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.pydaxing.com/about/</loc>
     <lastmod>2019-02-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.pydaxing.com/post/20171226_nwpureview/</loc>
+    <lastmod>2017-12-26T14:25:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.pydaxing.com/post/20171014_svm/</loc>
+    <lastmod>2017-10-14T12:18:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.pydaxing.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2017-10-14T12:18:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.pydaxing.com/archive/</loc>
   </url><url>

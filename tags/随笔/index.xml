@@ -1,35 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on 冷眸</title>
-    <link>https://blog.pydaxing.com/post/</link>
-    <description>Recent content in Posts on 冷眸</description>
+    <title>随笔 on 冷眸</title>
+    <link>https://blog.pydaxing.com/tags/%E9%9A%8F%E7%AC%94/</link>
+    <description>Recent content in 随笔 on 冷眸</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 24 Nov 2020 18:12:17 +0000</lastBuildDate><atom:link href="https://blog.pydaxing.com/post/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Deep Knowledge Tracing</title>
-      <link>https://blog.pydaxing.com/post/20201124_dkt-pytorch/</link>
-      <pubDate>Tue, 24 Nov 2020 18:12:17 +0000</pubDate>
-      
-      <guid>https://blog.pydaxing.com/post/20201124_dkt-pytorch/</guid>
-      <description>知识追踪（Knowledge Tracing）是根据学生过去的答题情况对学生的知识掌握情况进行建模，从而得到学生当前知识状态表示的一种技术。将深度学习的方法引入知识追踪最早出现于发表在NeurIPS 2015上的一篇论文《Deep Knowledge Tracing》，作者来自斯坦福大学。在这篇论文中，作者提出了使用深度知识追踪（Deep Knowledge Tracing, DKT）的概念，利用RNN对学生的学习情况进行建模，之后引出了一系列工作，2019年已经有使用Transformer代替RNN和LSTM并且达到了SOTA的论文。DKT作为知识追踪模型深度化的开山之作，在几乎所有的深度知识追踪模型中都作为baseline，而DKT作者给出的模型实现是基于lua语言的，为了能够让更多的研究人员更方便的使用，这里给出一种python的实现，采用的是pytorch框架。
-下载 模型代码已经发布在github上，可点击这里查看和下载具体代码。
-或者可以直接通过如下命令直接下载到本地：
-git clone https://github.com/pydaxing/DeepKnowledgeTracing-DKT-Pytorch.git
-具体运行和使用方法参考GitHub项目上ReadMe。
-项目结构-DKT 在DKT文件夹下包括两个文件夹：KTDataset和KnowledgeTracing。
-KTDataset文件夹下有6个常用的知识追踪数据集，数据都已经处理成三行格式：
-第一行：答题数 第二行：题目编号 第三行：答题结果，0表示错，1表示对
-Note：可根据需要，按照数据格式自行添加新的数据集。
-模型结构-KnowledgeTracing 模型的整个流程都在KnowledgeTracing目录下，包括模型、参数设置、数据处理、模型训练和评估，分别在四个子目录下：model， Constant，data，evaluation。
-参数设置-Constant Constant下主要设置一些参数和超参数，超参数也分为四大块：数据集存储路径、数据集、题目数、模型超参数。
-数据集存储路径
-Dpath = &amp;#39;../../KTDataset&amp;#39; 数据集：一共包括6个数据集
-datasets = { &amp;#39;assist2009&amp;#39; : &amp;#39;assist2009&amp;#39;, &amp;#39;assist2015&amp;#39; : &amp;#39;assist2015&amp;#39;, &amp;#39;assist2017&amp;#39; : &amp;#39;assist2017&amp;#39;, &amp;#39;static2011&amp;#39; : &amp;#39;static2011&amp;#39;, &amp;#39;kddcup2010&amp;#39; : &amp;#39;kddcup2010&amp;#39;, &amp;#39;synthetic&amp;#39; : &amp;#39;synthetic&amp;#39; } 题目数：表示每个数据集里面题目的数量
-numbers = { &amp;#39;assist2009&amp;#39; : 124, &amp;#39;assist2015&amp;#39; : 100, &amp;#39;assist2017&amp;#39; : 102, &amp;#39;static2011&amp;#39; : 1224, &amp;#39;kddcup2010&amp;#39; : 661, &amp;#39;synthetic&amp;#39; : 50 } 模型超参数：主要包括所用数据集、输入输出维度、学习率、最大步长、学习周期等。</description>
-    </item>
-    
+    <lastBuildDate>Thu, 18 Apr 2019 20:30:00 +0000</lastBuildDate><atom:link href="https://blog.pydaxing.com/tags/%E9%9A%8F%E7%AC%94/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>保研夏令营经验总结</title>
       <link>https://blog.pydaxing.com/post/20190428_summercamp/</link>
@@ -61,20 +38,6 @@ numbers = { &amp;#39;assist2009&amp;#39; : 124, &amp;#39;assist2015&amp;#39; : 1
 生活方面 在大学四年里面除了学习只外当然还会接触到一些有趣的难忘的事情，我也是有好奇心的，刚来到大学我也报名了社团基地之类组织，但是那些什么乐队呀主持啊新闻啊之类的肯定跟我是无缘了，说白了我没有任何特长，普通得不能在普通了，我就加了微软俱乐部，但是我好像一次也没去过，那儿的人好像也一次也没找过我，我至今都不知道那里面是干啥的，有些吃惊。。。其他的一些什么搬桌子凳子我就更不可能去了，我好像没有那么的高尚无私，我可不想没有意义的在哪里搬东西收拾东西，目前作为预备党员似乎应该有点大公无私的精神哟！哈哈哈！我就欺骗一下我自己你们别当真！哈哈哈！还在ACM基地待过，但是由于水平不够，我又不想天天对着电脑成百上千的刷着机试题所以最后也没去。大二时我又报了一个机器人基地，最后也是由于类似原因半路退出，现在想想我好像不太能坚持看不到希望的事情，我原本是希望能通过基地或一两个奖的，但是由于各种乱七八糟的事情又放弃了。我没有完整的参加过一个社团，坚持不下来，但是感觉有些东西即使坚持了也许还是得不到，最近的一件事也是有些苦恼不知如何是好。在大一的时候班级聚餐或其他活动我也会去参加，跟大家一块玩，但是越往后去的越少，甚至都没有活动了。大学的班级不像高中，比较松散各玩各的。前两年都沉迷于学习，偶尔跟同学去几个景点逛逛，拍两张照片就很高兴了。只是这一学期倒还有些乐趣，和同学看了不少电影，也看了一两本书，以前是几乎不看的，所以最近总说原来这才是大学生活。。。在大学里面加了不少的好友，认识的不认识的，同班的不同班的都有，几乎都是男生，女生并不多，甚至我们班的女生都没有全加上。加的好友虽然多，但是常联系经常交流的并不多甚至说就那么几个，跟高中一样还在联系的就那么几个，一个手掌都能数完，一想到这难免有些难过。偶尔跟同学出去吃个饭聊聊天感觉还是很好的。昨天刚跟一个考完研的同学出去吃了饭，顺便看了个电影《芳华》没想到那么伤感。。。有一些感触，最近的状态不太适合看这种情感过于细腻的电影。我好像跑题了。。。一个朋友说我说话有点自娱自乐，好像很对呀哈哈哈！总之大学里面没完整参加过社团,没有到处闲逛，偶尔跟同学一起出去玩玩，感觉过得很平淡。
 有些遗憾的 刚说了在大学里面虽然认识了很多人，但是那种经常联系一起吃饭聊天的不多，这也许是大学过的很枯燥很平淡的原因。机会只有一次，如果再给我一个机会结果可能还是会这样哈哈哈~~~有时有人问我有女朋友没有，我说我没有谈过恋爱哪来女朋友，有些人感觉很吃惊。我感觉很正常啊哈哈哈。。。再说也不容易遇到喜欢的人（不是眼光高哟）认识的女生也不多。偶尔会听到一个说法是大学就该谈恋爱，我也不知道是不是，哈哈不说了尴尬。还有我本打算在大学好好锻炼身体的，但是自己似乎总是有理由有借口，宁可坐着发呆睡懒觉也不想动，虽然我知道不好，但就是不想动不知道为什么，这是我最后悔的一件事。感觉大学里就没把学习落下，其余的什么事都没有做过。这大学几年看来过的并不完美。
 不管怎样，已经过去的无法在改变了，目前能做的就是最好未来的规划，也许还会同样的不完美，能做出一些改变也是好的。最近过的太悠闲，生活很没规律无所事事，也有一些事情比较纠结，总喜欢胡思乱想，希望能在元旦回去之后调整一下自己，希望在研究生阶段能弥补一些大学的遗憾，最起码要锻炼身体，其余的事再说，感觉我现在就开始讨价还价了。。。这样好像不好，希望不要给自己打脸，我看好我。最近有些颓废，马上就2018年了又老了一岁，希望自己写的这个垃圾文章能够警醒一下自己，革命尚未成功，仍需努力。fighting！！！</description>
-    </item>
-    
-    <item>
-      <title>支持向量机</title>
-      <link>https://blog.pydaxing.com/post/20171014_svm/</link>
-      <pubDate>Sat, 14 Oct 2017 12:18:00 +0000</pubDate>
-      
-      <guid>https://blog.pydaxing.com/post/20171014_svm/</guid>
-      <description>支持向量机（SVM）是一个非常好的监督学习算法，由于这个算法涉及到的数学知识比较多，而且不容易弄懂，因此我额外补了一些拉格朗日对偶性的一些知识，还初步了解了以下凸优化的相关知识，建议如过想学SVM的先去学一些拉格朗日对偶问题以及一些凸优化的相关东西。终于能大致弄懂SVM的整个过程中所涉及到的一些东西，但是仍有一些地方还是不太明白，还有待继续学习。这里先对所掌握的过程进行回顾总结。
-Support Vector Machine (SVM) 支持向量机（SVM）是一个监督学习算法，它实质上是一种特征空间上的间隔最大的线性分类器，这其中涉及到核技巧将线性不可分问题映射成特征空间中的线性可分问题，因此支持向量机可以说是一个非线性分类器，它的学习策略就是间隔最大化，最后的问题可以转化为一个凸优化问题，使用拉格朗日对偶性来求解对偶问题，从而间接得到原问题的解，一般使用SMO算法来求对偶问题的解。
-间隔最大化 支持向量机的思想就是间隔最大化，根据间隔最大化来构造原始问题。这里涉及到的间隔包括函数间隔和几何间隔，其中函数间隔为$\hat \gamma_i$ $$ \hat \gamma_i = y_i(\omega\cdot x_i + b) \tag{1} $$ 然后得到所有样本的函数间隔中的最小的一个$$\hat\gamma = \min_{i = 1,\cdots,N}(\hat\gamma_i)$$
-几何间隔由空间中两点的实际距离定义记作$\gamma_i$ $$ \gamma_i = \dfrac{\omega}{||\omega||}\cdot x_i + \dfrac{b}{||\omega||}\tag{2} $$ 同理求出所有几何间隔最小的$$\gamma = \min_{i =1\cdots,N}(\gamma_i)$$
-可以看出函数间隔是不唯一的，因为满足分离超平面$\omega^\ast\cdot x + b^\ast= 0$的参数$(\omega,b)$并不是唯一的，例如将$\omega$和$b$发你别扩大两倍后$2\omega^\ast\cdot x + 2b^\ast = 0$仍然成立，而函数间隔$\hat\gamma$会随着$(\omega , b)$变化。而几何距离却不会发生变化。
-同时还可以看出函数间隔和几何间隔之间满足关系(3) $$ \gamma = \dfrac{\hat\gamma}{||\omega||}\tag{3} $$ 因此这里考虑求解几何间隔最大的分离超平面，该问题则表示为下面的约束最优化问题 $$ \max_{\omega,b} \quad \gamma\tag{4}\\ s.t.\quad y_i(\dfrac{\omega}{||\omega||}\cdot x_i + \dfrac{b}{||\omega||}) \ge \gamma,\qquad i = 1,2,\cdots,N $$ 根据上述关系(3)将问题转换为 $$ \max_{\omega,b} \quad \dfrac{\hat\gamma}{||\omega||}\tag{5}\\ s.</description>
     </item>
     
   </channel>
