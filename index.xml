@@ -5,17 +5,8 @@
     <link>https://blog.pydaxing.com/</link>
     <description>Recent content on 冷眸</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sat, 16 Sep 2023 01:21:52 +0800</lastBuildDate><atom:link href="https://blog.pydaxing.com/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Xiongdandi</title>
-      <link>https://blog.pydaxing.com/post/xiongdandi/</link>
-      <pubDate>Sat, 16 Sep 2023 01:21:52 +0800</pubDate>
-      
-      <guid>https://blog.pydaxing.com/post/xiongdandi/</guid>
-      <description></description>
-    </item>
-    
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 15 Sep 2023 19:56:33 +0800</lastBuildDate><atom:link href="https://blog.pydaxing.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Test</title>
       <link>https://blog.pydaxing.com/post/test/</link>
@@ -31,8 +22,46 @@
       <pubDate>Fri, 15 Sep 2023 18:45:29 +0800</pubDate>
       
       <guid>https://blog.pydaxing.com/post/lengmou/</guid>
-      <description>test test 因为$x^2 = 4$，所以$x=2$。
+      <description>放假快乐复健科
+背景调研 放假啊到付件阿里卡
+背景调研 放假啊到付件阿里卡
+相关技术 就发了公交卡
+相关技术 就发了公交卡
+深度信息 企鹅润
+深度信息 企鹅润 发啦咖啡机
+背景调研 复健科冷风机
+相关技术 甲方冷冻机房
+深度信息 因为$x^2 = 4$，所以$x=2$。
 import numpy as np </description>
+    </item>
+    
+    <item>
+      <title>Xiongdandi</title>
+      <link>https://blog.pydaxing.com/post/xiongdandi/</link>
+      <pubDate>Fri, 16 Sep 2022 01:21:52 +0800</pubDate>
+      
+      <guid>https://blog.pydaxing.com/post/xiongdandi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://blog.pydaxing.com/about/</link>
+      <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.pydaxing.com/about/</guid>
+      <description>Written in Go, Hugo is an open source static site generator available under the Apache Licence 2.0. Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
+Hugo makes use of a variety of open source projects including:
+https://github.com/yuin/goldmark https://github.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.pydaxing.com/archive/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.pydaxing.com/archive/</guid>
+      <description></description>
     </item>
     
   </channel>

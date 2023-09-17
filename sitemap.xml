@@ -2,23 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://blog.pydaxing.com/tags/haha/</loc>
+    <lastmod>2023-09-15T19:56:33+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.pydaxing.com/tags/hello/</loc>
+    <lastmod>2023-09-15T19:56:33+08:00</lastmod>
+  </url><url>
     <loc>https://blog.pydaxing.com/post/</loc>
-    <lastmod>2023-09-16T01:21:52+08:00</lastmod>
+    <lastmod>2023-09-15T19:56:33+08:00</lastmod>
   </url><url>
-    <loc>https://blog.pydaxing.com/post/xiongdandi/</loc>
-    <lastmod>2023-09-16T01:21:52+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.pydaxing.com/</loc>
-    <lastmod>2023-09-16T01:21:52+08:00</lastmod>
+    <loc>https://blog.pydaxing.com/tags/</loc>
+    <lastmod>2023-09-15T19:56:33+08:00</lastmod>
   </url><url>
     <loc>https://blog.pydaxing.com/post/test/</loc>
+    <lastmod>2023-09-15T19:56:33+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.pydaxing.com/</loc>
     <lastmod>2023-09-15T19:56:33+08:00</lastmod>
   </url><url>
     <loc>https://blog.pydaxing.com/post/lengmou/</loc>
     <lastmod>2023-09-15T18:45:29+08:00</lastmod>
   </url><url>
+    <loc>https://blog.pydaxing.com/post/xiongdandi/</loc>
+    <lastmod>2022-09-16T01:21:52+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.pydaxing.com/about/</loc>
+    <lastmod>2019-02-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.pydaxing.com/archive/</loc>
+  </url><url>
     <loc>https://blog.pydaxing.com/categories/</loc>
   </url><url>
-    <loc>https://blog.pydaxing.com/tags/</loc>
+    <loc>https://blog.pydaxing.com/series/</loc>
   </url>
 </urlset>
