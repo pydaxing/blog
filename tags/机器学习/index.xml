@@ -8,17 +8,12 @@
     <language>zh-cn</language>
     <lastBuildDate>Sat, 14 Oct 2017 12:18:00 +0000</lastBuildDate><atom:link href="https://blog.pydaxing.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>支持向量机</title>
+      <title>test1</title>
       <link>https://blog.pydaxing.com/post/20171014_svm/</link>
       <pubDate>Sat, 14 Oct 2017 12:18:00 +0000</pubDate>
       
       <guid>https://blog.pydaxing.com/post/20171014_svm/</guid>
-      <description>支持向量机（SVM）是一个非常好的监督学习算法，由于这个算法涉及到的数学知识比较多，而且不容易弄懂，因此我额外补了一些拉格朗日对偶性的一些知识，还初步了解了以下凸优化的相关知识，建议如过想学SVM的先去学一些拉格朗日对偶问题以及一些凸优化的相关东西。终于能大致弄懂SVM的整个过程中所涉及到的一些东西，但是仍有一些地方还是不太明白，还有待继续学习。这里先对所掌握的过程进行回顾总结。
-Support Vector Machine (SVM) 支持向量机（SVM）是一个监督学习算法，它实质上是一种特征空间上的间隔最大的线性分类器，这其中涉及到核技巧将线性不可分问题映射成特征空间中的线性可分问题，因此支持向量机可以说是一个非线性分类器，它的学习策略就是间隔最大化，最后的问题可以转化为一个凸优化问题，使用拉格朗日对偶性来求解对偶问题，从而间接得到原问题的解，一般使用SMO算法来求对偶问题的解。
-间隔最大化 支持向量机的思想就是间隔最大化，根据间隔最大化来构造原始问题。这里涉及到的间隔包括函数间隔和几何间隔，其中函数间隔为$\hat \gamma_i$ $$ \hat \gamma_i = y_i(\omega\cdot x_i + b) \tag{1} $$ 然后得到所有样本的函数间隔中的最小的一个$$\hat\gamma = \min_{i = 1,\cdots,N}(\hat\gamma_i)$$
-几何间隔由空间中两点的实际距离定义记作$\gamma_i$ $$ \gamma_i = \dfrac{\omega}{||\omega||}\cdot x_i + \dfrac{b}{||\omega||}\tag{2} $$ 同理求出所有几何间隔最小的$$\gamma = \min_{i =1\cdots,N}(\gamma_i)$$
-可以看出函数间隔是不唯一的，因为满足分离超平面$\omega^\ast\cdot x + b^\ast= 0$的参数$(\omega,b)$并不是唯一的，例如将$\omega$和$b$发你别扩大两倍后$2\omega^\ast\cdot x + 2b^\ast = 0$仍然成立，而函数间隔$\hat\gamma$会随着$(\omega , b)$变化。而几何距离却不会发生变化。
-同时还可以看出函数间隔和几何间隔之间满足关系(3) $$ \gamma = \dfrac{\hat\gamma}{||\omega||}\tag{3} $$ 因此这里考虑求解几何间隔最大的分离超平面，该问题则表示为下面的约束最优化问题 $$ \max_{\omega,b} \quad \gamma\tag{4}\\ s.t.\quad y_i(\dfrac{\omega}{||\omega||}\cdot x_i + \dfrac{b}{||\omega||}) \ge \gamma,\qquad i = 1,2,\cdots,N $$ 根据上述关系(3)将问题转换为 $$ \max_{\omega,b} \quad \dfrac{\hat\gamma}{||\omega||}\tag{5}\\ s.</description>
+      <description></description>
     </item>
     
   </channel>
