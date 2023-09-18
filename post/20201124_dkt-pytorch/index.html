@@ -45,7 +45,7 @@
   />
 
   
-  <title>test4 - 冷眸</title>
+  <title>Deep Knowledge Tracing - 冷眸</title>
 
   
   <meta name="theme-color" />
@@ -53,7 +53,21 @@
   
   
   
-  <meta name="description" content="" />
+  <meta name="description" content="知识追踪（Knowledge Tracing）是根据学生过去的答题情况对学生的知识掌握情况进行建模，从而得到学生当前知识状态表示的一种技术。将深度学习的方法引入知识追踪最早出现于发表在NeurIPS 2015上的一篇论文《Deep Knowledge Tracing》，作者来自斯坦福大学。在这篇论文中，作者提出了使用深度知识追踪（Deep Knowledge Tracing, DKT）的概念，利用RNN对学生的学习情况进行建模，之后引出了一系列工作，2019年已经有使用Transformer代替RNN和LSTM并且达到了SOTA的论文。DKT作为知识追踪模型深度化的开山之作，在几乎所有的深度知识追踪模型中都作为baseline，而DKT作者给出的模型实现是基于lua语言的，为了能够让更多的研究人员更方便的使用，这里给出一种python的实现，采用的是pytorch框架。
+下载 模型代码已经发布在github上，可点击这里查看和下载具体代码。
+或者可以直接通过如下命令直接下载到本地：
+git clone https://github.com/pydaxing/DeepKnowledgeTracing-DKT-Pytorch.git
+具体运行和使用方法参考GitHub项目上ReadMe。
+项目结构-DKT 在DKT文件夹下包括两个文件夹：KTDataset和KnowledgeTracing。
+KTDataset文件夹下有6个常用的知识追踪数据集，数据都已经处理成三行格式：
+第一行：答题数 第二行：题目编号 第三行：答题结果，0表示错，1表示对
+Note：可根据需要，按照数据格式自行添加新的数据集。
+模型结构-KnowledgeTracing 模型的整个流程都在KnowledgeTracing目录下，包括模型、参数设置、数据处理、模型训练和评估，分别在四个子目录下：model， Constant，data，evaluation。
+参数设置-Constant Constant下主要设置一些参数和超参数，超参数也分为四大块：数据集存储路径、数据集、题目数、模型超参数。
+数据集存储路径
+Dpath = &#39;../../KTDataset&#39; 数据集：一共包括6个数据集
+datasets = { &#39;assist2009&#39; : &#39;assist2009&#39;, &#39;assist2015&#39; : &#39;assist2015&#39;, &#39;assist2017&#39; : &#39;assist2017&#39;, &#39;static2011&#39; : &#39;static2011&#39;, &#39;kddcup2010&#39; : &#39;kddcup2010&#39;, &#39;synthetic&#39; : &#39;synthetic&#39; } 题目数：表示每个数据集里面题目的数量
+numbers = { &#39;assist2009&#39; : 124, &#39;assist2015&#39; : 100, &#39;assist2017&#39; : 102, &#39;static2011&#39; : 1224, &#39;kddcup2010&#39; : 661, &#39;synthetic&#39; : 50 } 模型超参数：主要包括所用数据集、输入输出维度、学习率、最大步长、学习周期等。" />
   <meta name="author" content="冷眸" />
   
 
@@ -143,23 +157,48 @@
   
   
   
-  <meta itemprop="name" content="test4">
-<meta itemprop="description" content=""><meta itemprop="datePublished" content="2020-11-24T18:12:17+00:00" />
+  <meta itemprop="name" content="Deep Knowledge Tracing">
+<meta itemprop="description" content="知识追踪（Knowledge Tracing）是根据学生过去的答题情况对学生的知识掌握情况进行建模，从而得到学生当前知识状态表示的一种技术。将深度学习的方法引入知识追踪最早出现于发表在NeurIPS 2015上的一篇论文《Deep Knowledge Tracing》，作者来自斯坦福大学。在这篇论文中，作者提出了使用深度知识追踪（Deep Knowledge Tracing, DKT）的概念，利用RNN对学生的学习情况进行建模，之后引出了一系列工作，2019年已经有使用Transformer代替RNN和LSTM并且达到了SOTA的论文。DKT作为知识追踪模型深度化的开山之作，在几乎所有的深度知识追踪模型中都作为baseline，而DKT作者给出的模型实现是基于lua语言的，为了能够让更多的研究人员更方便的使用，这里给出一种python的实现，采用的是pytorch框架。
+下载 模型代码已经发布在github上，可点击这里查看和下载具体代码。
+或者可以直接通过如下命令直接下载到本地：
+git clone https://github.com/pydaxing/DeepKnowledgeTracing-DKT-Pytorch.git
+具体运行和使用方法参考GitHub项目上ReadMe。
+项目结构-DKT 在DKT文件夹下包括两个文件夹：KTDataset和KnowledgeTracing。
+KTDataset文件夹下有6个常用的知识追踪数据集，数据都已经处理成三行格式：
+第一行：答题数 第二行：题目编号 第三行：答题结果，0表示错，1表示对
+Note：可根据需要，按照数据格式自行添加新的数据集。
+模型结构-KnowledgeTracing 模型的整个流程都在KnowledgeTracing目录下，包括模型、参数设置、数据处理、模型训练和评估，分别在四个子目录下：model， Constant，data，evaluation。
+参数设置-Constant Constant下主要设置一些参数和超参数，超参数也分为四大块：数据集存储路径、数据集、题目数、模型超参数。
+数据集存储路径
+Dpath = &#39;../../KTDataset&#39; 数据集：一共包括6个数据集
+datasets = { &#39;assist2009&#39; : &#39;assist2009&#39;, &#39;assist2015&#39; : &#39;assist2015&#39;, &#39;assist2017&#39; : &#39;assist2017&#39;, &#39;static2011&#39; : &#39;static2011&#39;, &#39;kddcup2010&#39; : &#39;kddcup2010&#39;, &#39;synthetic&#39; : &#39;synthetic&#39; } 题目数：表示每个数据集里面题目的数量
+numbers = { &#39;assist2009&#39; : 124, &#39;assist2015&#39; : 100, &#39;assist2017&#39; : 102, &#39;static2011&#39; : 1224, &#39;kddcup2010&#39; : 661, &#39;synthetic&#39; : 50 } 模型超参数：主要包括所用数据集、输入输出维度、学习率、最大步长、学习周期等。"><meta itemprop="datePublished" content="2020-11-24T18:12:17+00:00" />
 <meta itemprop="dateModified" content="2020-11-24T18:12:17+00:00" />
-<meta itemprop="wordCount" content="0">
+<meta itemprop="wordCount" content="1048">
 <meta itemprop="keywords" content="数据挖掘," />
   
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="test4"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="Deep Knowledge Tracing"/>
+<meta name="twitter:description" content="知识追踪（Knowledge Tracing）是根据学生过去的答题情况对学生的知识掌握情况进行建模，从而得到学生当前知识状态表示的一种技术。将深度学习的方法引入知识追踪最早出现于发表在NeurIPS 2015上的一篇论文《Deep Knowledge Tracing》，作者来自斯坦福大学。在这篇论文中，作者提出了使用深度知识追踪（Deep Knowledge Tracing, DKT）的概念，利用RNN对学生的学习情况进行建模，之后引出了一系列工作，2019年已经有使用Transformer代替RNN和LSTM并且达到了SOTA的论文。DKT作为知识追踪模型深度化的开山之作，在几乎所有的深度知识追踪模型中都作为baseline，而DKT作者给出的模型实现是基于lua语言的，为了能够让更多的研究人员更方便的使用，这里给出一种python的实现，采用的是pytorch框架。
+下载 模型代码已经发布在github上，可点击这里查看和下载具体代码。
+或者可以直接通过如下命令直接下载到本地：
+git clone https://github.com/pydaxing/DeepKnowledgeTracing-DKT-Pytorch.git
+具体运行和使用方法参考GitHub项目上ReadMe。
+项目结构-DKT 在DKT文件夹下包括两个文件夹：KTDataset和KnowledgeTracing。
+KTDataset文件夹下有6个常用的知识追踪数据集，数据都已经处理成三行格式：
+第一行：答题数 第二行：题目编号 第三行：答题结果，0表示错，1表示对
+Note：可根据需要，按照数据格式自行添加新的数据集。
+模型结构-KnowledgeTracing 模型的整个流程都在KnowledgeTracing目录下，包括模型、参数设置、数据处理、模型训练和评估，分别在四个子目录下：model， Constant，data，evaluation。
+参数设置-Constant Constant下主要设置一些参数和超参数，超参数也分为四大块：数据集存储路径、数据集、题目数、模型超参数。
+数据集存储路径
+Dpath = &#39;../../KTDataset&#39; 数据集：一共包括6个数据集
+datasets = { &#39;assist2009&#39; : &#39;assist2009&#39;, &#39;assist2015&#39; : &#39;assist2015&#39;, &#39;assist2017&#39; : &#39;assist2017&#39;, &#39;static2011&#39; : &#39;static2011&#39;, &#39;kddcup2010&#39; : &#39;kddcup2010&#39;, &#39;synthetic&#39; : &#39;synthetic&#39; } 题目数：表示每个数据集里面题目的数量
+numbers = { &#39;assist2009&#39; : 124, &#39;assist2015&#39; : 100, &#39;assist2017&#39; : 102, &#39;static2011&#39; : 1224, &#39;kddcup2010&#39; : 661, &#39;synthetic&#39; : 50 } 模型超参数：主要包括所用数据集、输入输出维度、学习率、最大步长、学习周期等。"/>
 
   
   
 
-  <link
-          rel="stylesheet"
-          href="https://unpkg.com/@waline/client@v2/dist/waline.css"
-  />
+  <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css"/>
 </head>
 
   <body class="text-black duration-200 ease-out dark:text-white">
@@ -273,7 +312,7 @@
 
 <article>
   <header class="mb-16">
-    <h1 class="!my-0 pb-2.5">test4</h1>
+    <h1 class="!my-0 pb-2.5">Deep Knowledge Tracing</h1>
 
     
     <div class="text-sm antialiased opacity-60">
@@ -290,10 +329,369 @@
     
   </header>
 
-  
+  <div class="toc mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]">
+  <details >
+  <summary accesskey="c" title="(Alt + C)">
+    <span class="details" style="font-weight: bold; font-size: 18px">目 录</span>
+  </summary>
+
+  <div class="inner"><ul>
+      <li>
+        <a href="#%e4%b8%8b%e8%bd%bd" aria-label="下载">下载</a></li>
+      <li>
+        <a href="#%e9%a1%b9%e7%9b%ae%e7%bb%93%e6%9e%84-dkt" aria-label="项目结构-DKT">项目结构-DKT</a><ul>
+          
+      <li>
+        <a href="#%e6%a8%a1%e5%9e%8b%e7%bb%93%e6%9e%84-knowledgetracing" aria-label="模型结构-KnowledgeTracing">模型结构-KnowledgeTracing</a><ul>
+          
+      <li>
+        <a href="#%e5%8f%82%e6%95%b0%e8%ae%be%e7%bd%ae-constant" aria-label="参数设置-Constant">参数设置-Constant</a></li>
+      <li>
+        <a href="#%e6%a8%a1%e5%9e%8b%e5%ae%9e%e7%8e%b0-model" aria-label="模型实现-model">模型实现-model</a></li>
+      <li>
+        <a href="#%e6%95%b0%e6%8d%ae%e5%a4%84%e7%90%86-data" aria-label="数据处理-data">数据处理-data</a></li>
+      <li>
+        <a href="#%e6%a8%a1%e5%9e%8b%e8%ae%ad%e7%bb%83%e4%b8%8e%e6%b5%8b%e8%af%95-evaluation" aria-label="模型训练与测试-evaluation">模型训练与测试-evaluation</a>
+      </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+  </div>
+  </details>
+</div>
   
 
-  <section></section>
+  <section><p>知识追踪（Knowledge Tracing）是根据学生过去的答题情况对学生的知识掌握情况进行建模，从而得到学生当前知识状态表示的一种技术。将深度学习的方法引入知识追踪最早出现于发表在NeurIPS 2015上的一篇论文《Deep Knowledge Tracing》，作者来自斯坦福大学。在这篇论文中，作者提出了使用深度知识追踪（Deep Knowledge Tracing, DKT）的概念，利用RNN对学生的学习情况进行建模，之后引出了一系列工作，2019年已经有使用Transformer代替RNN和LSTM并且达到了SOTA的论文。DKT作为知识追踪模型深度化的开山之作，在几乎所有的深度知识追踪模型中都作为baseline，而DKT作者给出的模型实现是基于lua语言的，为了能够让更多的研究人员更方便的使用，这里给出一种python的实现，采用的是pytorch框架。</p>
+<!-- more -->
+<h2 id="下载">下载</h2>
+<p>模型代码已经发布在github上，可点击<a href="https://github.com/pydaxing/DeepKnowledgeTracing-DKT-Pytorch.git">这里</a>查看和下载具体代码。</p>
+<p>或者可以直接通过如下命令直接下载到本地：</p>
+<blockquote>
+<p>git clone <a href="https://github.com/pydaxing/DeepKnowledgeTracing-DKT-Pytorch.git">https://github.com/pydaxing/DeepKnowledgeTracing-DKT-Pytorch.git</a></p>
+</blockquote>
+<p>具体运行和使用方法参考GitHub项目上ReadMe。</p>
+<h2 id="项目结构-dkt">项目结构-DKT</h2>
+<p>在DKT文件夹下包括两个文件夹：KTDataset和KnowledgeTracing。</p>
+<p>KTDataset文件夹下有6个常用的知识追踪数据集，数据都已经处理成三行格式：</p>
+<blockquote>
+<p>第一行：答题数
+第二行：题目编号
+第三行：答题结果，0表示错，1表示对</p>
+</blockquote>
+<p>Note：可根据需要，按照数据格式自行添加新的数据集。</p>
+<h3 id="模型结构-knowledgetracing">模型结构-KnowledgeTracing</h3>
+<p>模型的整个流程都在KnowledgeTracing目录下，包括模型、参数设置、数据处理、模型训练和评估，分别在四个子目录下：model， Constant，data，evaluation。</p>
+<h4 id="参数设置-constant">参数设置-Constant</h4>
+<p>Constant下主要设置一些参数和超参数，超参数也分为四大块：数据集存储路径、数据集、题目数、模型超参数。</p>
+<p>数据集存储路径</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>Dpath <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;../../KTDataset&#39;</span>
+</span></span></code></pre></div><p>数据集：一共包括6个数据集</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>datasets <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;assist2009&#39;</span> : <span style="color:#e6db74">&#39;assist2009&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;assist2015&#39;</span> : <span style="color:#e6db74">&#39;assist2015&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;assist2017&#39;</span> : <span style="color:#e6db74">&#39;assist2017&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;static2011&#39;</span> : <span style="color:#e6db74">&#39;static2011&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;kddcup2010&#39;</span> : <span style="color:#e6db74">&#39;kddcup2010&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;synthetic&#39;</span> : <span style="color:#e6db74">&#39;synthetic&#39;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>题目数：表示每个数据集里面题目的数量</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>numbers <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;assist2009&#39;</span> : <span style="color:#ae81ff">124</span>,  
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;assist2015&#39;</span> : <span style="color:#ae81ff">100</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;assist2017&#39;</span> : <span style="color:#ae81ff">102</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;static2011&#39;</span> : <span style="color:#ae81ff">1224</span>, 
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;kddcup2010&#39;</span> : <span style="color:#ae81ff">661</span>,  
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;synthetic&#39;</span> : <span style="color:#ae81ff">50</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>模型超参数：主要包括所用数据集、输入输出维度、学习率、最大步长、学习周期等。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>DATASET <span style="color:#f92672">=</span> datasets[<span style="color:#e6db74">&#39;static2011&#39;</span>]
+</span></span><span style="display:flex;"><span>NUM_OF_QUESTIONS <span style="color:#f92672">=</span> numbers[<span style="color:#e6db74">&#39;static2011&#39;</span>]
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># the max step of RNN model</span>
+</span></span><span style="display:flex;"><span>MAX_STEP <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>
+</span></span><span style="display:flex;"><span>BATCH_SIZE <span style="color:#f92672">=</span> <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>LR <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.002</span>
+</span></span><span style="display:flex;"><span>EPOCH <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#input dimension</span>
+</span></span><span style="display:flex;"><span>INPUT <span style="color:#f92672">=</span> NUM_OF_QUESTIONS <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># embedding dimension</span>
+</span></span><span style="display:flex;"><span>EMBED <span style="color:#f92672">=</span> NUM_OF_QUESTIONS
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># hidden layer dimension</span>
+</span></span><span style="display:flex;"><span>HIDDEN <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># nums of hidden layers</span>
+</span></span><span style="display:flex;"><span>LAYERS <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># output dimension</span>
+</span></span><span style="display:flex;"><span>OUTPUT <span style="color:#f92672">=</span> NUM_OF_QUESTIONS
+</span></span></code></pre></div><h4 id="模型实现-model">模型实现-model</h4>
+<p>模型在model目录下的RNNModel.py文件中实现，模型实际上就是一个简单的LSTM网络，其结构跟DKT原文中所讲述的结构一致，在LSTM模型最后添加了一个线性层和一个sigmoid激活函数。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DKT</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, input_dim, hidden_dim, layer_dim, output_dim):
+</span></span><span style="display:flex;"><span>        super(DKT, self)<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>hidden_dim <span style="color:#f92672">=</span> hidden_dim
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>layer_dim <span style="color:#f92672">=</span> layer_dim
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>output_dim <span style="color:#f92672">=</span> output_dim
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>rnn <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>RNN(input_dim, hidden_dim, layer_dim, batch_first<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,nonlinearity<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;tanh&#39;</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>fc <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(self<span style="color:#f92672">.</span>hidden_dim, self<span style="color:#f92672">.</span>output_dim)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>sig <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Sigmoid()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
+</span></span><span style="display:flex;"><span>        h0 <span style="color:#f92672">=</span> Variable(torch<span style="color:#f92672">.</span>zeros(self<span style="color:#f92672">.</span>layer_dim, x<span style="color:#f92672">.</span>size(<span style="color:#ae81ff">0</span>), self<span style="color:#f92672">.</span>hidden_dim))
+</span></span><span style="display:flex;"><span>        out,hn <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>rnn(x, h0)
+</span></span><span style="display:flex;"><span>        res <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>sig(self<span style="color:#f92672">.</span>fc(out))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> res
+</span></span></code></pre></div><h4 id="数据处理-data">数据处理-data</h4>
+<p>在data目录下包括三个文件：readdata.py、DKTDataSet.py、dataloader.py。它们的作用分别是定义数据的读取、pytorch框架下的数据集定义、以及pytorch框架下的dataloader的构造。</p>
+<p><strong>readata</strong>: 在readata.py文件中，定义了一个类：DataReader，从名字可以看出这是一个用来读取数据的类。其中包含两个函数getTrainData()和getTestData()，分别是用来读取训练数据和测试数据。两个函数的定义其实一模一样，只是名字不一样用来区分训练和测试数据，这样的写法有些冗余，后面会再做一些优化。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DataReader</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, path, maxstep, numofques):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>path <span style="color:#f92672">=</span> path
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>maxstep <span style="color:#f92672">=</span> maxstep
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>numofques <span style="color:#f92672">=</span> numofques
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getTrainData</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getTestData</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span></code></pre></div><p>DataReader类有三个参数：</p>
+<blockquote>
+<p>path: 数据文件存储路径
+maxstep: 最大序列长度
+numofques: 此数据集中所有题目的总个数（去重后）</p>
+</blockquote>
+<p>获取与处理数据部分，以getTrainData()函数为例，getTestData()与其一样。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getTrainData</span>(self):
+</span></span><span style="display:flex;"><span>    trainqus <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([])
+</span></span><span style="display:flex;"><span>    trainans <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> open(self<span style="color:#f92672">.</span>path, <span style="color:#e6db74">&#39;r&#39;</span>) <span style="color:#66d9ef">as</span> train:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> len, ques, ans <span style="color:#f92672">in</span> tqdm<span style="color:#f92672">.</span>tqdm(itertools<span style="color:#f92672">.</span>zip_longest(<span style="color:#f92672">*</span>[train] <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span>), desc<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;loading train data:    &#39;</span>, mininterval<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>):
+</span></span><span style="display:flex;"><span>            len <span style="color:#f92672">=</span> int(len<span style="color:#f92672">.</span>strip()<span style="color:#f92672">.</span>strip(<span style="color:#e6db74">&#39;,&#39;</span>))
+</span></span><span style="display:flex;"><span>            ques <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(ques<span style="color:#f92672">.</span>strip()<span style="color:#f92672">.</span>strip(<span style="color:#e6db74">&#39;,&#39;</span>)<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;,&#39;</span>))<span style="color:#f92672">.</span>astype(np<span style="color:#f92672">.</span>int)
+</span></span><span style="display:flex;"><span>            ans <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(ans<span style="color:#f92672">.</span>strip()<span style="color:#f92672">.</span>strip(<span style="color:#e6db74">&#39;,&#39;</span>)<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;,&#39;</span>))<span style="color:#f92672">.</span>astype(np<span style="color:#f92672">.</span>int)
+</span></span><span style="display:flex;"><span>            mod <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">if</span> len<span style="color:#f92672">%</span>self<span style="color:#f92672">.</span>maxstep <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">else</span> (self<span style="color:#f92672">.</span>maxstep <span style="color:#f92672">-</span> len<span style="color:#f92672">%</span>self<span style="color:#f92672">.</span>maxstep)
+</span></span><span style="display:flex;"><span>            zero <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(mod) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            ques <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>append(ques, zero)
+</span></span><span style="display:flex;"><span>            ans <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>append(ans, zero)
+</span></span><span style="display:flex;"><span>            trainqus <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>append(trainqus, ques)<span style="color:#f92672">.</span>astype(np<span style="color:#f92672">.</span>int)
+</span></span><span style="display:flex;"><span>            trainans <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>append(trainans, ans)<span style="color:#f92672">.</span>astype(np<span style="color:#f92672">.</span>int)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> trainqus<span style="color:#f92672">.</span>reshape([<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, self<span style="color:#f92672">.</span>maxstep]), trainans<span style="color:#f92672">.</span>reshape([<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, self<span style="color:#f92672">.</span>maxstep])
+</span></span></code></pre></div><p>在getTrainData()中，首先定义两个numpy数组trainqus和trainans，前者存储题目编号，后者存储对应的答题结果。然后打开文件开始读取数据。</p>
+<p>因为数据是三行格式的，所以每一次读取三行，每次读取三行的实现方式如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> len, ques, ans <span style="color:#f92672">in</span> tqdm<span style="color:#f92672">.</span>tqdm(itertools<span style="color:#f92672">.</span>zip_longest(<span style="color:#f92672">*</span>[train] <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span>), desc<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;loading train data:    &#39;</span>, mininterval<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+</span></span></code></pre></div><p>其中tqdm是进度条展示，可忽略，简化来看每次读取三行的方法如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> len, ques, ans <span style="color:#f92672">in</span> itertools<span style="color:#f92672">.</span>zip_longest(<span style="color:#f92672">*</span>[train] <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span>)
+</span></span></code></pre></div><p>然后是对三行数据进行字符串处理，分别得到题目编号以及对应的答题结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>ques <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(ques<span style="color:#f92672">.</span>strip()<span style="color:#f92672">.</span>strip(<span style="color:#e6db74">&#39;,&#39;</span>)<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;,&#39;</span>))<span style="color:#f92672">.</span>astype(np<span style="color:#f92672">.</span>int)
+</span></span><span style="display:flex;"><span>ans <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(ans<span style="color:#f92672">.</span>strip()<span style="color:#f92672">.</span>strip(<span style="color:#e6db74">&#39;,&#39;</span>)<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;,&#39;</span>))<span style="color:#f92672">.</span>astype(np<span style="color:#f92672">.</span>int)
+</span></span></code></pre></div><p>然后是处理长度不一致的问题，将所有答题序列的长度都处理成maxstep的整数倍，长度不够的补0。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>mod <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">if</span> len<span style="color:#f92672">%</span>self<span style="color:#f92672">.</span>maxstep <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">else</span> (self<span style="color:#f92672">.</span>maxstep <span style="color:#f92672">-</span> len<span style="color:#f92672">%</span>self<span style="color:#f92672">.</span>maxstep)
+</span></span><span style="display:flex;"><span>zero <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(mod) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>ques <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>append(ques, zero)
+</span></span><span style="display:flex;"><span>ans <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>append(ans, zero)
+</span></span></code></pre></div><p>举例：ques长度为18，设置maxstep为5，那么ques补充成maxstep的整数倍应该是4倍为20，所以ques应该补充两个0变成长度为20的序列；如果ques长度为11，那么补充4个0，长度变成15；ques长度为10，则不补充。</p>
+<p>每一个ques的长度处理成maxstep的整数倍之后，添加到trainques数组中去，这样每一次添加都保证了trainques的长度为maxstep的整数倍。ans以及trainans的处理过程一样。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>trainqus <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>append(trainqus, ques)<span style="color:#f92672">.</span>astype(np<span style="color:#f92672">.</span>int)
+</span></span><span style="display:flex;"><span>trainans <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>append(trainans, ans)<span style="color:#f92672">.</span>astype(np<span style="color:#f92672">.</span>int)
+</span></span></code></pre></div><p>最后对trainques和trainans进行reshape，处理成N*maxstep的矩阵形式，N即可看做学生个数。maxstep即为答题个数。</p>
+<p>举例，数据形式的变化过程，比如设置maxstep为3，总题目数为5，现在有如下三个学生的原始答题记录：
+学生1：
+2
+1 2
+1 0
+学生2：
+4
+2 4 1 3
+0 1 1 0
+学生3：
+7
+5 3 1 4 5 4 2
+0 0 1 1 0 1 0</p>
+<p>ques通过readata读取并处理之后会变成：
+1 2 0
+2 4 1
+3 0 0
+5 3 1
+4 5 4
+2 0 0</p>
+<p><strong>DKTDataSet</strong>：要定义pytorch框架下的数据集，需要继承torch的Dataset类，覆写__init__、__len__以及__getitem__三个函数。还可以根据需要自己添加数据处理的函数，在DKTDataSet中添加的one-hot处理函数。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DKTDataSet</span>(Dataset):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, ques, ans):
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __len__(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __getitem__(self, index):
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">onehot</span>(self, questions, answers):
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span></code></pre></div><p>在readdata处理好数据之后，我们在DKTDataSet中对其进行封装处理，直接返回题目的one-hot形式而不再是题目编号。</p>
+<p>在__init__中做一些初始化操作，比入读进数据ques和ans，前者是题目编号，后者是答题结果。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> __init__(self, ques, ans):
+</span></span><span style="display:flex;"><span>    self<span style="color:#f92672">.</span>ques <span style="color:#f92672">=</span> ques
+</span></span><span style="display:flex;"><span>    self<span style="color:#f92672">.</span>ans <span style="color:#f92672">=</span> ans
+</span></span></code></pre></div><p>__len__返回数据集的长度（大小），这里直接返回ques或者ans的行数，也就是学生数。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> __len__(self):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> len(self<span style="color:#f92672">.</span>ques)
+</span></span></code></pre></div><p>__getitem__返回需要获取的某条数据，这里根据index参数直接返回对应的数据即可，这里我们返回前将数据通过自定义的onehot函数处理成one-hot的形式，并且将数据类型转换为FloatTensor。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> __getitem__(self, index):
+</span></span><span style="display:flex;"><span>    questions <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>ques[index]
+</span></span><span style="display:flex;"><span>    answers <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>ans[index]
+</span></span><span style="display:flex;"><span>    onehot <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>onehot(questions, answers)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> torch<span style="color:#f92672">.</span>FloatTensor(onehot<span style="color:#f92672">.</span>tolist())
+</span></span></code></pre></div><p>__onehot__是自定义的将题目编号转变成one-hot形式的函数。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">onehot</span>(self, questions, answers):
+</span></span><span style="display:flex;"><span>    result <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(shape<span style="color:#f92672">=</span>[C<span style="color:#f92672">.</span>MAX_STEP, <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> C<span style="color:#f92672">.</span>NUM_OF_QUESTIONS])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(C<span style="color:#f92672">.</span>MAX_STEP):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> answers[i] <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            result[i][questions[i]] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> answers[i] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            result[i][questions[i] <span style="color:#f92672">+</span> C<span style="color:#f92672">.</span>NUM_OF_QUESTIONS] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result
+</span></span></code></pre></div><p>与原文保持一致，one-hot的维度为两倍的总题目数，所以对于readata中处理好的每一条记录ques，将变成[C.MAX_STEP, 2 * C.NUM_OF_QUESTIONS]大小的矩阵，因为每条记录ques中包含C.MAX_STEP个题目，每个题目的onehot维度为2 * C.NUM_OF_QUESTIONS。</p>
+<p>接着readata中的例子，ques在DKTDataSet中转变成onehot形式之后，数据的形式变成：
+[[1 0 0 0 0 0 0 0 0 0] -&gt; 1
+ [0 0 0 0 0 0 1 0 0 0] -&gt; 2
+ [0 0 0 0 0 0 0 0 0 0] -&gt; 0
+ [0 0 0 0 0 0 1 0 0 0] -&gt; 2
+ [0 0 0 1 0 0 0 0 0 0] -&gt; 4
+ [1 0 0 0 0 0 0 0 0 0] -&gt; 1
+ &hellip;]</p>
+<p><strong>dataloader</strong>：在dataloader.py中，包含一个训练数据的loader和一个测试数据的loader，分别是getTrainLoader和getTestLoader，实际上这两个loader的实现一模一样，只是去了两个不同的名字为了区分训练和测试数据，这样的方式比较冗余，后面的版本会进行优化。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getTrainLoader</span>(train_data_path):
+</span></span><span style="display:flex;"><span>    handle <span style="color:#f92672">=</span> DataReader(train_data_path ,C<span style="color:#f92672">.</span>MAX_STEP, C<span style="color:#f92672">.</span>NUM_OF_QUESTIONS)
+</span></span><span style="display:flex;"><span>    trainques, trainans <span style="color:#f92672">=</span> handle<span style="color:#f92672">.</span>getTrainData()
+</span></span><span style="display:flex;"><span>    dtrain <span style="color:#f92672">=</span> DKTDataSet(trainques, trainans)
+</span></span><span style="display:flex;"><span>    trainLoader <span style="color:#f92672">=</span> Data<span style="color:#f92672">.</span>DataLoader(dtrain, batch_size<span style="color:#f92672">=</span>C<span style="color:#f92672">.</span>BATCH_SIZE, shuffle<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> trainLoader
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getTestLoader</span>(test_data_path):
+</span></span><span style="display:flex;"><span>    handle <span style="color:#f92672">=</span> DataReader(test_data_path, C<span style="color:#f92672">.</span>MAX_STEP, C<span style="color:#f92672">.</span>NUM_OF_QUESTIONS)
+</span></span><span style="display:flex;"><span>    testques, testans <span style="color:#f92672">=</span> handle<span style="color:#f92672">.</span>getTestData()
+</span></span><span style="display:flex;"><span>    dtest <span style="color:#f92672">=</span> DKTDataSet(testques, testans)
+</span></span><span style="display:flex;"><span>    testLoader <span style="color:#f92672">=</span> Data<span style="color:#f92672">.</span>DataLoader(dtest, batch_size<span style="color:#f92672">=</span>C<span style="color:#f92672">.</span>BATCH_SIZE, shuffle<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> testLoader
+</span></span></code></pre></div><p>关于如何定义loader就不做过多介绍，关于pytorch的dataloader的相关文章有很多。</p>
+<p>在dataloader.py中还有一个函数：getLoader，这个函数封装了getTrainLoader和getTestLoader，通过调用此函数直接获取训练和测试的loader。并且函数的参数是数据集的名称，根据数据集名称分别为不同的数据集构造loader。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getLoader</span>(dataset):
+</span></span><span style="display:flex;"><span>    trainLoaders <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    testLoaders <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> dataset <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;assist2009&#39;</span>:
+</span></span><span style="display:flex;"><span>        trainLoader <span style="color:#f92672">=</span> getTrainLoader(C<span style="color:#f92672">.</span>Dpath <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;/assist2009/builder_train.csv&#39;</span>)
+</span></span><span style="display:flex;"><span>        trainLoaders<span style="color:#f92672">.</span>append(trainLoader)
+</span></span><span style="display:flex;"><span>        testLoader <span style="color:#f92672">=</span> getTestLoader(C<span style="color:#f92672">.</span>Dpath <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;/assist2009/builder_test.csv&#39;</span>)
+</span></span><span style="display:flex;"><span>        testLoaders<span style="color:#f92672">.</span>append(testLoader)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> dataset <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;assist2015&#39;</span>:
+</span></span><span style="display:flex;"><span>        trainLoader <span style="color:#f92672">=</span> getTrainLoader(C<span style="color:#f92672">.</span>Dpath <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;/assist2015/assist2015_train.txt&#39;</span>)
+</span></span><span style="display:flex;"><span>        trainLoaders<span style="color:#f92672">.</span>append(trainLoader)
+</span></span><span style="display:flex;"><span>        testLoader <span style="color:#f92672">=</span> getTestLoader(C<span style="color:#f92672">.</span>Dpath <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;/assist2015/assist2015_test.txt&#39;</span>)
+</span></span><span style="display:flex;"><span>        testLoaders<span style="color:#f92672">.</span>append(testLoader)
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
+</span></span></code></pre></div><h4 id="模型训练与测试-evaluation">模型训练与测试-evaluation</h4>
+<p>在evaluation目录下，有两个文件，一个是eval.py文件，主要实现模型的训练和测试以及品谷的过程；另一个是run.py文件，是主程序入口。</p>
+<p><strong>eval</strong>：在eval.py文件中，定义了两个函数train和test分别实现模型的训练和测试：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">train</span>(trainLoaders, model, optimizer, lossFunc):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(trainLoaders)):
+</span></span><span style="display:flex;"><span>        model, optimizer <span style="color:#f92672">=</span> train_epoch(model, trainLoaders[i], optimizer, lossFunc)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> model, optimizer
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test</span>(testLoaders, model):
+</span></span><span style="display:flex;"><span>    ground_truth <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>Tensor([])
+</span></span><span style="display:flex;"><span>    prediction <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>Tensor([])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(testLoaders)):
+</span></span><span style="display:flex;"><span>        pred_epoch, gold_epoch <span style="color:#f92672">=</span> test_epoch(model, testLoaders[i])
+</span></span><span style="display:flex;"><span>        prediction <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>cat([prediction, pred_epoch])
+</span></span><span style="display:flex;"><span>        ground_truth <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>cat([ground_truth, gold_epoch])
+</span></span><span style="display:flex;"><span>    performance(ground_truth, prediction)
+</span></span></code></pre></div><p>而训练过程有分为很多epoch，每一个epoch的过程在train_epoch中实现。而对于测试过程，由于某些测试集可能会很大，导致内存一次存不下，所以将测试集分成多个loader，然后对于每一个loader都调用一次test_epoch，然后把所有的loader的结果合并起来。最后，所有的结果拼接起来后，通过performance函数计算模型的各个评价指标。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>    prediction <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>cat([prediction, pred_epoch])
+</span></span><span style="display:flex;"><span>    ground_truth <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>cat([ground_truth, gold_epoch])
+</span></span><span style="display:flex;"><span>performance(ground_truth, prediction)
+</span></span></code></pre></div><p>对于train_epoch，过程跟一般的pytorch模型训练过程一样，读取数据loader、预测、计算损失、反向传播等：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">train_epoch</span>(model, trainLoader, optimizer, loss_func):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> batch <span style="color:#f92672">in</span> tqdm<span style="color:#f92672">.</span>tqdm(trainLoader, desc<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Training:    &#39;</span>, mininterval<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>):
+</span></span><span style="display:flex;"><span>        pred <span style="color:#f92672">=</span> model(batch)
+</span></span><span style="display:flex;"><span>        loss <span style="color:#f92672">=</span> loss_func(pred, batch)
+</span></span><span style="display:flex;"><span>        optimizer<span style="color:#f92672">.</span>zero_grad()
+</span></span><span style="display:flex;"><span>        loss<span style="color:#f92672">.</span>backward()
+</span></span><span style="display:flex;"><span>        optimizer<span style="color:#f92672">.</span>step()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> model, optimizer
+</span></span></code></pre></div><p>对于test_epoch，由于知识追踪任务比较特殊，每一个时刻的输出都是预测下一个时刻答对题目的概率，因此有一些额外的处理。先上代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_epoch</span>(model, testLoader):
+</span></span><span style="display:flex;"><span>    gold_epoch <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>Tensor([])
+</span></span><span style="display:flex;"><span>    pred_epoch <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>Tensor([])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> batch <span style="color:#f92672">in</span> tqdm<span style="color:#f92672">.</span>tqdm(testLoader, desc<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Testing:    &#39;</span>, mininterval<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>):
+</span></span><span style="display:flex;"><span>        pred <span style="color:#f92672">=</span> model(batch)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> student <span style="color:#f92672">in</span> range(pred<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>]):
+</span></span><span style="display:flex;"><span>            temp_pred <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>Tensor([])
+</span></span><span style="display:flex;"><span>            temp_gold <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>Tensor([])
+</span></span><span style="display:flex;"><span>            delta <span style="color:#f92672">=</span> batch[student][:,<span style="color:#ae81ff">0</span>:C<span style="color:#f92672">.</span>NUM_OF_QUESTIONS] <span style="color:#f92672">+</span> batch[student][:,C<span style="color:#f92672">.</span>NUM_OF_QUESTIONS:]
+</span></span><span style="display:flex;"><span>            temp <span style="color:#f92672">=</span> pred[student][:C<span style="color:#f92672">.</span>MAX_STEP <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>mm(delta[<span style="color:#ae81ff">1</span>:]<span style="color:#f92672">.</span>t())
+</span></span><span style="display:flex;"><span>            index <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>LongTensor([[i <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(C<span style="color:#f92672">.</span>MAX_STEP <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)]])
+</span></span><span style="display:flex;"><span>            p <span style="color:#f92672">=</span> temp<span style="color:#f92672">.</span>gather(<span style="color:#ae81ff">0</span>, index)[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>            a <span style="color:#f92672">=</span> (((batch[student][:, <span style="color:#ae81ff">0</span>:C<span style="color:#f92672">.</span>NUM_OF_QUESTIONS] <span style="color:#f92672">-</span> batch[student][:, C<span style="color:#f92672">.</span>NUM_OF_QUESTIONS:])<span style="color:#f92672">.</span>sum(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)<span style="color:#f92672">//</span><span style="color:#ae81ff">2</span>)[<span style="color:#ae81ff">1</span>:]
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(p)):
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> p[i] <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>                    temp_pred <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>cat([temp_pred,p[i:i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]])
+</span></span><span style="display:flex;"><span>                    temp_gold <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>cat([temp_gold, a[i:i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]])
+</span></span><span style="display:flex;"><span>            pred_epoch <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>cat([pred_epoch, temp_pred])
+</span></span><span style="display:flex;"><span>            gold_epoch <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>cat([gold_epoch, temp_gold])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> pred_epoch, gold_epoch
+</span></span></code></pre></div><p>在test_epoch函数中，先定义两个列表，分别用来存储真实结果ground truth 和预测的结果pred：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>gold_epoch <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>Tensor([])
+</span></span><span style="display:flex;"><span>pred_epoch <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>Tensor([])
+</span></span></code></pre></div><p>然后读取数据，分多个batch进行预测，因为一次预测可能数据量过大导致内存溢出而出错。Note：每一个batch中包含多个学生，每个学生有maxstep个题目，每个题目表示成了2*num_of_ques维的onehot向量。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> batch <span style="color:#f92672">in</span> tqdm<span style="color:#f92672">.</span>tqdm(testLoader, desc<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Testing:    &#39;</span>, mininterval<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>):
+</span></span><span style="display:flex;"><span>    pred <span style="color:#f92672">=</span> model(batch)
+</span></span></code></pre></div><p>预测完之后，整理数据，把学生所有的题目的预测结果存储起来，方便后面的评估。对于每一个学生，先创建两个列表，分别存储真是答题结果ground truth和预测结果pred。然后再将每个学生的结果添加进开始定义的两个总结果列表gold_epoch和pred_epoch中去。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> student <span style="color:#f92672">in</span> range(pred<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>]):
+</span></span><span style="display:flex;"><span>    temp_pred <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>Tensor([])
+</span></span><span style="display:flex;"><span>    temp_gold <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>Tensor([])
+</span></span></code></pre></div><p>然后是获取预测结果，这里先将2*num_of_ques维的题目onehot向量分成前后两个部分，每部分分别是num_of_ques维，然后相加，乘以预测结果，即可得到对应的题目的预测结果，这里的计算过程可自行推敲，等有机会再给出可视化的计算过程。因为每一个时刻都是预测的下一个时刻的结果，所以题目编号需要向后移一个，体现在delta[1:]这里：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>delta <span style="color:#f92672">=</span> batch[student][:,<span style="color:#ae81ff">0</span>:C<span style="color:#f92672">.</span>NUM_OF_QUESTIONS] <span style="color:#f92672">+</span> batch[student][:,C<span style="color:#f92672">.</span>NUM_OF_QUESTIONS:]
+</span></span><span style="display:flex;"><span>temp <span style="color:#f92672">=</span> pred[student][:C<span style="color:#f92672">.</span>MAX_STEP <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>mm(delta[<span style="color:#ae81ff">1</span>:]<span style="color:#f92672">.</span>t())
+</span></span><span style="display:flex;"><span>index <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>LongTensor([[i <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(C<span style="color:#f92672">.</span>MAX_STEP <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)]])
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> temp<span style="color:#f92672">.</span>gather(<span style="color:#ae81ff">0</span>, index)[<span style="color:#ae81ff">0</span>]
+</span></span></code></pre></div><p>对于答题的真实结果，其实在onehot的向量中就已经体现了，答对则向量前半部分对应的位置为1，答错则向量后半部分对应的位置为1。根据这个特点，按照下面的方式就可以直接通过onehot向量推出真实答题结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>a <span style="color:#f92672">=</span> (((batch[student][:, <span style="color:#ae81ff">0</span>:C<span style="color:#f92672">.</span>NUM_OF_QUESTIONS] <span style="color:#f92672">-</span> batch[student][:, C<span style="color:#f92672">.</span>NUM_OF_QUESTIONS:])<span style="color:#f92672">.</span>sum(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)<span style="color:#f92672">//</span><span style="color:#ae81ff">2</span>)[<span style="color:#ae81ff">1</span>:]
+</span></span></code></pre></div><p>到此处为止，预测结果和真实结果就已经都得到了。但是，这里还要在做一个筛选，别忘了我们之前在数据长度不够的时候是补0了的，这里需要把补0的结果全部都过滤掉。由于补零的题目的onehot向量为全零向量，那么全零向量经过神经网络之后预测结果肯定为0。而正常题目不是非零的，那么预测结果为0的可能性极小，因为神经网络参数为0的可能性极小。所以我们根据预测结果是否为0，直接把为0的全部去除掉（我们这里的处理方法似乎不是很合理，因为正常题目也是有可能出现预测结果为0的情况，但是这种可能性极小，对模型整体而言几乎没什么影响，所以这么做也是合理的，并且十分方便）：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> p[i] <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>    temp_pred <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>cat([temp_pred,p[i:i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]])
+</span></span><span style="display:flex;"><span>    temp_gold <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>cat([temp_gold, a[i:i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]])
+</span></span></code></pre></div><p>在每次处理完一个学生的数据之后，将其添加到总结果列表中去：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>pred_epoch <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>cat([pred_epoch, temp_pred])
+</span></span><span style="display:flex;"><span>gold_epoch <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>cat([gold_epoch, temp_gold])
+</span></span></code></pre></div><p>最后返回结果即可。</p>
+<p>在eval.py文件中还定义了一个损失函数类lossFunc，基于pytorch框架的自定义的损失函数。其实这个损失函数就是分类问题中常用的交叉熵函数，只是知识追踪问题的数据是序列化的，所以这里不太方便直接调用pytorch框架中已有的交叉熵函数，自己按需实现了一下，里面涉及的一些过程和test_epoch中的部分过程类似：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">lossFunc</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        super(lossFunc, self)<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, pred, batch):
+</span></span><span style="display:flex;"><span>        loss <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>Tensor([<span style="color:#ae81ff">0.0</span>])
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> student <span style="color:#f92672">in</span> range(pred<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>]):
+</span></span><span style="display:flex;"><span>            delta <span style="color:#f92672">=</span> batch[student][:,<span style="color:#ae81ff">0</span>:C<span style="color:#f92672">.</span>NUM_OF_QUESTIONS] <span style="color:#f92672">+</span> batch[student][:,C<span style="color:#f92672">.</span>NUM_OF_QUESTIONS:]
+</span></span><span style="display:flex;"><span>            temp <span style="color:#f92672">=</span> pred[student][:C<span style="color:#f92672">.</span>MAX_STEP <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>mm(delta[<span style="color:#ae81ff">1</span>:]<span style="color:#f92672">.</span>t())
+</span></span><span style="display:flex;"><span>            index <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>LongTensor([[i <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(C<span style="color:#f92672">.</span>MAX_STEP <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)]])
+</span></span><span style="display:flex;"><span>            p <span style="color:#f92672">=</span> temp<span style="color:#f92672">.</span>gather(<span style="color:#ae81ff">0</span>, index)[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>            a <span style="color:#f92672">=</span> (((batch[student][:, <span style="color:#ae81ff">0</span>:C<span style="color:#f92672">.</span>NUM_OF_QUESTIONS] <span style="color:#f92672">-</span> batch[student][:, C<span style="color:#f92672">.</span>NUM_OF_QUESTIONS:])<span style="color:#f92672">.</span>sum(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)<span style="color:#f92672">//</span><span style="color:#ae81ff">2</span>)[<span style="color:#ae81ff">1</span>:]
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(p)):
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> p[i] <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>                    loss <span style="color:#f92672">=</span> loss <span style="color:#f92672">-</span> (a[i]<span style="color:#f92672">*</span>torch<span style="color:#f92672">.</span>log(p[i]) <span style="color:#f92672">+</span> (<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>a[i])<span style="color:#f92672">*</span>torch<span style="color:#f92672">.</span>log(<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>p[i]))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> loss
+</span></span></code></pre></div><p>最后，eval.py文件中包含一个performance函数，从名字就可以看出这个函数用来评价模型的表现，也就是计算预测结果的各个指标，包括AUC、F1、Recall、Precision，可以根据需要自行添加，计算方式可自定义或者直接掉包：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">performance</span>(ground_truth, prediction):
+</span></span><span style="display:flex;"><span>    fpr, tpr, thresholds <span style="color:#f92672">=</span> metrics<span style="color:#f92672">.</span>roc_curve(ground_truth<span style="color:#f92672">.</span>detach()<span style="color:#f92672">.</span>numpy(), prediction<span style="color:#f92672">.</span>detach()<span style="color:#f92672">.</span>numpy())
+</span></span><span style="display:flex;"><span>    auc <span style="color:#f92672">=</span> metrics<span style="color:#f92672">.</span>auc(fpr, tpr)
+</span></span><span style="display:flex;"><span>    f1 <span style="color:#f92672">=</span> metrics<span style="color:#f92672">.</span>f1_score(ground_truth<span style="color:#f92672">.</span>detach()<span style="color:#f92672">.</span>numpy(), torch<span style="color:#f92672">.</span>round(prediction)<span style="color:#f92672">.</span>detach()<span style="color:#f92672">.</span>numpy())
+</span></span><span style="display:flex;"><span>    recall <span style="color:#f92672">=</span> metrics<span style="color:#f92672">.</span>recall_score(ground_truth<span style="color:#f92672">.</span>detach()<span style="color:#f92672">.</span>numpy(), torch<span style="color:#f92672">.</span>round(prediction)<span style="color:#f92672">.</span>detach()<span style="color:#f92672">.</span>numpy())
+</span></span><span style="display:flex;"><span>    precision <span style="color:#f92672">=</span> metrics<span style="color:#f92672">.</span>precision_score(ground_truth<span style="color:#f92672">.</span>detach()<span style="color:#f92672">.</span>numpy(), torch<span style="color:#f92672">.</span>round(prediction)<span style="color:#f92672">.</span>detach()<span style="color:#f92672">.</span>numpy())
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#39;auc:&#39;</span> <span style="color:#f92672">+</span> str(auc) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; f1: &#39;</span> <span style="color:#f92672">+</span> str(f1) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; recall: &#39;</span> <span style="color:#f92672">+</span> str(recall) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; precision: &#39;</span> <span style="color:#f92672">+</span> str(precision) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+</span></span></code></pre></div><p>到此处为止，DKT项目的所有部分都已介绍完毕。由于时间仓促，并没有把所有细节都介绍很清楚，但对于学习和理解DKT来说已经足够了。后续有时间会根据需要补充一些更细节的介绍，如果有什么问题或建议可直接评论留言，我会及时回复，或者通过主页的邮箱联系。</p>
+</section>
 
   
   
@@ -318,28 +716,17 @@
     <a
       class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
       href="https://blog.pydaxing.com/post/20190428_summercamp/"
-      ><span>test3</span><span class="ml-1.5">→</span></a
+      ><span>保研夏令营经验总结</span><span class="ml-1.5">→</span></a
     >
     
   </nav>
   
   
 
-  <div id="waline"></div>
+  
+  <div id="waline" style="margin-top: 2em"></div>
   <script type="module">
     import { init } from 'https://unpkg.com/@waline/client@v2/dist/waline.mjs';
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
     const config = {
       el: '#waline',
       lang: 'zh-CN',
@@ -353,29 +740,11 @@
     };
     setTimeout(function() {
       init(config);
-    }, 1000);
+      var poweredby = document.querySelector('.wl-power');
+      poweredby.remove();
+    }, 500);
   </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
 
 
   

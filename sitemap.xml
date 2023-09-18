@@ -2,13 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://blog.pydaxing.com/post/20201124_dkt-pytorch/</loc>
+    <lastmod>2020-11-24T18:12:17+00:00</lastmod>
+  </url><url>
     <loc>https://blog.pydaxing.com/post/</loc>
     <lastmod>2020-11-24T18:12:17+00:00</lastmod>
   </url><url>
     <loc>https://blog.pydaxing.com/tags/</loc>
-    <lastmod>2020-11-24T18:12:17+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.pydaxing.com/post/20201124_dkt-pytorch/</loc>
     <lastmod>2020-11-24T18:12:17+00:00</lastmod>
   </url><url>
     <loc>https://blog.pydaxing.com/</loc>
