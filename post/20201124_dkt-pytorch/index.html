@@ -727,14 +727,22 @@ numofques: 此数据集中所有题目的总个数（去重后）</p>
   
   
   
-  <div style="margin-bottom: 1em"></div>
+  <div style="margin-bottom: 5em"></div>
   <div id="waline"></div>
   <script type="module">
     import { init } from 'https://unpkg.com/@waline/client@v2/dist/waline.mjs';
 
     init({
       el: '#waline',
-      serverURL: 'https://serene-salmiakki-cff1b7.netlify.app/.netlify/functions/comment',
+      lang: 'zh-CN',
+      dark: 'auto',
+      meta: ['nick', 'mail'],
+      requiredMeta: ['nick', 'mail'],
+      login: 'force',
+      wordLimit: 100,
+      pageSize: 10,
+      avatar: 'wavatar',
+      serverURL: 'https://pydaxing.netlify.app/.netlify/functions/comment/',
     });
   </script>
   
