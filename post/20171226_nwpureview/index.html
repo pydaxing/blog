@@ -168,6 +168,11 @@
   
   
 
+
+  <link
+          rel="stylesheet"
+          href="https://unpkg.com/@waline/client@v2/dist/waline.css"
+  />
 </head>
 
   <body class="text-black duration-200 ease-out dark:text-white">
@@ -365,18 +370,13 @@
   
   
   <div style="margin-bottom: 1em"></div>
-  <div id="vcomments"></div>
-  <script src="//code.bdstatic.com/npm/leancloud-storage@4.12.0/dist/av-min.js"></script>
-  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-  <script>
-    new Valine({
-      el: '#vcomments',
-      appId: 'Mvo2kSXrq75ajB85bWlSoZs0-MdYXbMMI',
-      appKey: 'wEuGHMkK6Tj97nJO97MKoio6',
-      serverURLs: 'https://Mvo2kSXr.api.lncldglobal.com',
-      requiredFields: ['nick'],
-      pageSize: 10,
-      avatar:'mp' 
+  <div id="waline"></div>
+  <script type="module">
+    import { init } from 'https://unpkg.com/@waline/client@v2/dist/waline.mjs';
+
+    init({
+      el: '#waline',
+      serverURL: 'http://waline.waline.1946453327465490.cn-beijing.fc.devsapp.net',
     });
   </script>
   
