@@ -156,12 +156,10 @@
   
   
 
-
   <link
           rel="stylesheet"
           href="https://unpkg.com/@waline/client@v2/dist/waline.css"
   />
-  <script src="//cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js"></script>
 </head>
 
   <body class="text-black duration-200 ease-out dark:text-white">
@@ -293,6 +291,40 @@
   
   
   
+
+  <div id="waline"></div>
+  <script type="module">
+    import { init } from 'https://unpkg.com/@waline/client@v2/dist/waline.mjs';
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    const config = {
+      el: '#waline',
+      lang: 'zh-CN',
+      meta: ['nick', 'mail'],
+      requiredMeta: ['nick', 'mail'],
+      pageSize: 10,
+      avatar: 'monsterid',
+      wordLimit: 100,
+      dark: 'auto',
+      serverURL: 'https://comment.pydaxing.com/.netlify/functions/comment/'
+    };
+    setTimeout(function() {
+      init(config);
+    }, 1000);
+  </script>
+
+
+
 
   
   
