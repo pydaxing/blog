@@ -6,7 +6,33 @@
     <description>Recent content in Posts on 冷眸</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 24 Nov 2020 18:12:17 +0000</lastBuildDate><atom:link href="https://blog.pydaxing.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 15 Apr 2023 18:12:17 +0000</lastBuildDate><atom:link href="https://blog.pydaxing.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>一文从入门到精通Prompt工程</title>
+      <link>https://blog.pydaxing.com/post/prompt-%E5%B7%A5%E7%A8%8B%E8%B0%83%E7%A0%94/</link>
+      <pubDate>Sat, 15 Apr 2023 18:12:17 +0000</pubDate>
+      
+      <guid>https://blog.pydaxing.com/post/prompt-%E5%B7%A5%E7%A8%8B%E8%B0%83%E7%A0%94/</guid>
+      <description>最近在了解大语言模型相关一些技术，Prompt工程成了一个比较热的话题，甚至有公司还有prompt工程师，所以在这里对prompt做一个系统性的调研和总结，一起学习下。
+1、Prompt工程及必要性 1.1、什么是 prompt NLP之前的发展可以概括为特征工程、结构工程和目标工程。
+特征工程：监督学习依赖特征的好坏，深度学习之前需要相关研究人员或者专业人士利用自己扎实的领域知识从原始数据中定义并提取有用的特征供 模型学习。
+结构工程：深度学习出现之后特征能从数据中直接学习到，所以聚焦于如何设计一个合理的网络结果去学习有用的特征，从而减少对人工构建特征的依赖。
+目标工程：在预训练+微调出现之后，由于预训练不需要专家知识，可直接在大规模文本上训练。因此又聚焦目标的设计，合理设计预训练跟微调阶段的目标函数，对最终的效果影响深远。
+预训练任务是在大规模语言文本数据上进行的，不需要专业领域知识，训练方式是让模型补全上下文（可以理解为完形填空），因此模型的目标就是槽填充（Slot Filting）。在目标工程的过程中，发现下游任务目标与预训练目标对齐是最友好的。因此在下游任务中通过引入“文本提示符（textual prompt）”，把下游任务的目标重构成跟预训练一致的上下文补全是最好的选择。
+比如对于一个输入 “I missed the bus today.” ，分别在分类任务和翻译任务下向预训练任务对齐，可以重构如下
+情感预测任务
+原任务：I missed the bus today. -&amp;gt; positive / negative
+原目标：分类预测
+重构任务：I missed the bus today. It is a ___ day.
+重构目标：槽填充（Slot Filting）
+提示词（prompt）：It is a day
+语言翻译任务
+原任务：I missed the bus today -&amp;gt; J&amp;rsquo;ai raté le bus aujourd&amp;rsquo;hui
+原目标：回归预测
+重构任务：English : I missed the bus today. French: ___.
+重构目标：槽填充（Slot Filting）</description>
+    </item>
+    
     <item>
       <title>DKT复现详解</title>
       <link>https://blog.pydaxing.com/post/20201124_dkt-pytorch/</link>
