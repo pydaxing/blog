@@ -500,9 +500,9 @@
 <p>在定义好Prompt模式之后，基于此模式去设计Prompt就不会偏离Prompt设计的初衷。因此Prompt实际上是起到了明确Prompt设计需求的作用，后续所有Prompt的设计都要满足此模式的规定。</p>
 <h3 id="22chatgpt官方prompt模式">2.2、ChatGPT官方Prompt模式</h3>
 <p>ChatGPT官方给出了4种基础Prompt模式和几种增强模式。</p>
-<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/MNpQlKBbXzVeODvL/img/f9c360d8-78ae-4298-9729-f38bab07df7f.png" alt="image"></p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/f9c360d8-78ae-4298-9729-f38bab07df7f.png" alt="image"></p>
 <h4 id="221特定指令by-specific基础">2.2.1、特定指令（By specific）【基础】</h4>
-<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/MNpQlKBbXzVeODvL/img/877ddc3e-4bb2-41a3-83ae-ab02f01f9e02.png" alt="image"></p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/877ddc3e-4bb2-41a3-83ae-ab02f01f9e02.png" alt="image"></p>
 <p>在这种模式下，我们给模型提供一些特定信息，例如问题或关键词，模型需要生成与这些信息相关的文本。这种模式通常用于生成答案、解释或推荐等。特定信息可以是单个问题或多个关键词，具体取决于任务的要求。比如</p>
 <ul>
 <li>
@@ -517,7 +517,7 @@
 </ul>
 <p>此模式重点是：Output Driven。在提示的开头包含所有相关信息，包括任何上下文或期望的结果，以及 长度，格式样式等。诸如于：用 100 字总结一下 ChatGPT。</p>
 <h4 id="222指令模板instruction-template基础">2.2.2、指令模板（Instruction Template）【基础】</h4>
-<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/MNpQlKBbXzVeODvL/img/0e6f2275-0995-4040-87c4-fe6154c2b02f.png" alt="image"></p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/877ddc3e-4bb2-41a3-83ae-ab02f01f9e02.png" alt="image"></p>
 <p>在这种模式下，我们给模型提供一些明确的指令，模型需要根据这些指令生成文本。这种模式通常用于生成类似于技术说明书、操作手册等需要明确指令的文本。指令可以是单个句子或多个段落，具体取决于任务的要求。</p>
 <p><strong>输入</strong></p>
 <p>使用 STAR 原则与下面的格式总结一下这段话：</p>
@@ -540,7 +540,7 @@
 得到了多篇文章和很多的文章阅读量
 获得了几个 Jupyter 代码段以及相关经验</p>
 <h4 id="223代理模式by-proxy基础">2.2.3、代理模式（By proxy）【基础】</h4>
-<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/MNpQlKBbXzVeODvL/img/2b791360-b546-4c42-80ee-db97b82a4dfa.png" alt="image"></p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/2b791360-b546-4c42-80ee-db97b82a4dfa.png" alt="image"></p>
 <p>Proxy 模式是指用户可以要求 ChatGPT 以特定的身份、角色或者身份扮演某个特定的人、角色或对象来生成回答。这种模式通常用于模拟某个特定人物的语言风格和语境，生成特定情境下的对话、回答或其他形式的文本。比如当使用 ChatGPT 来代替某个人或实体时，可以使用 by proxy 模式。</p>
 <p><strong>例如，可以使用以下 prompt 提问 ChatGPT 代替某个公司的客服</strong></p>
 <blockquote>
@@ -552,10 +552,10 @@
 </blockquote>
 <h4 id="224示例模式by-demonstration基础">2.2.4、示例模式（By demonstration）【基础】</h4>
 <p>在这种模式下，我们给模型提供一些示例文本，模型需要生成与示例文本类似的文本。这种模式通常用于生成类似于给定示例的文本，例如自动生成电子邮件、产品描述、新闻报道等。示例文本可以是单个句子或多个段落，具体取决于任务的要求。</p>
-<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/MNpQlKBbXzVeODvL/img/a5e3b4f1-b899-4ce8-9a84-b1ec7e46892f.png" alt="image"></p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/a5e3b4f1-b899-4ce8-9a84-b1ec7e46892f.png" alt="image"></p>
 <h4 id="225符号化模式增强">2.2.5、符号化模式【增强】</h4>
 <p>符号化方法通常通过定义符号、符号之间的关系以及基于这些关系的规则来表示知识。</p>
-<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/MNpQlKBbXzVeODvL/img/32c3dbb6-d295-46fb-ae4a-89fc3fcf3c6d.png" alt="image"></p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/32c3dbb6-d295-46fb-ae4a-89fc3fcf3c6d.png" alt="image"></p>
 <p>我们来玩一个名为 gkzw 的写作游戏，每当我说 gkzw，你开始写作，规则如下：</p>
 <ol>
 <li>字数不少于 200 字。</li>
@@ -685,13 +685,14 @@
 <h3 id="33梯度搜索">3.3、梯度搜索</h3>
 <h4 id="331trigger-搜索">3.3.1、Trigger 搜索</h4>
 <p>在给定模型f，我们想要搜寻trigger，使得对于任意的输入x，模型最终分类的结果都是不变的，也就是f(trigger;x)=y。首先选择trigger的长度，接着通过重复”the”，“a”等方式初始化trigger的片段，然后将这些trigger片段跟输入拼接到一起，不断迭代去替换trigger片段里的token使得模型预测结果f(trigger;x)跟期望的目标之间的距离最小化。迭代优化需要用到预测结果跟期望目标之间的损失在模型中的梯度，所以属于基于梯度的方法。</p>
-<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/MNpQlKBbXzVeODvL/img/324d7d5a-94da-4505-a538-32aa288b2102.png" alt="image"></p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/324d7d5a-94da-4505-a538-32aa288b2102.png" alt="image"></p>
 <h4 id="332自动prompt">3.3.2、自动Prompt</h4>
 <p>是一种为下游任务自动搜索prompt的方式，它的目标是在搜寻合适的prompt，使得下游任务的表现最佳。<strong>我们想去搜寻那些可以在所有prompt共享使用的trigger</strong>，这里的trigger会先用[MASK]进行初始化，然后不断迭代去更新，使得相应的最大似然函数尽可能大。<strong>在每一步中，首先计算将某个trigger的token替换为另一个token的对数似然函数的变化的一阶近似，从而可以得到变化最大的K个token（这里的变化是计算相应的token的词嵌入跟对应trigger的token在嵌入层的梯度的乘积，变化越大说明越合适），将其作为候选集。对于候选集的元素，计算在相应prompt在数据中的表现，保留效果最好的部分，作为更新得到的prompt。</strong></p>
-<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/MNpQlKBbXzVeODvL/img/1255903b-2d1c-4a43-97d6-d2f77d1f5c70.png" alt="image"></p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/1255903b-2d1c-4a43-97d6-d2f77d1f5c70.png" alt="image"></p>
 <h4 id="333-prompt-模型生成">3.3.3 Prompt 模型生成</h4>
 <p>利用模型T5通过生成的方式去构建prompt。模型T5预训练任务就是去预测那些[MASK]位置的token，所以可以将句子输入T5，然后让T5去生成相应的prompt，这样也就不用去指定prompt对应的token数量了。例如图中左边是原始的数据，通过规则可以转化为右边的格式，M(y)是答案空间（不清楚的可以去看入门篇），<x><y>是占位符，将右边的格式输入到T5后，T5会预测占位符<x><y>位置上的token，进而得到prompt。</p>
-<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/MNpQlKBbXzVeODvL/img/ca99c803-b2db-449a-b322-0e427b097690.png" alt="image"><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/MNpQlKBbXzVeODvL/img/05e33b16-d551-4a21-9ded-e244aa36bea5.png" alt="image"></p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/ca99c803-b2db-449a-b322-0e427b097690.png" alt="image">
+<img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/05e33b16-d551-4a21-9ded-e244aa36bea5.png" alt="image"></p>
 <p>English：[x]. French：[y].，</p>
 <ol>
 <li>
@@ -705,7 +706,7 @@
 <p>通过人工构建prompt的方式生成候选集，然后让语言模型对候选集里的prompt打分，选择最合适的prompt。前面提到的涉及多个prompt排序都是直接在看下游任务表现的，而这里却是用语言模型来打分。</p>
 <h3 id="34多模板方法">3.4、多模板方法</h3>
 <p>受集成学习同时运用多个模型的启发，还有一些工作尝试使用多个 Prompt 来共同完成任务，称为<strong>多模板学习</strong> (multi-prompt learning)。常见的多模板方法有模板集成、模板增强、模板合成以及模板拆分， 如下图所示：</p>
-<p><img src="https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/MNpQlKBbXzVeODvL/img/d0c3a6d5-718f-4e40-9128-78e2e829d4a2.png" alt="image"></p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/d0c3a6d5-718f-4e40-9128-78e2e829d4a2.png" alt="image"></p>
 <h4 id="341模板集成-prompt-ensembling">3.4.1、模板集成 (Prompt Ensembling)</h4>
 <p>使用多个 Prompt 共同对输入进行预测，如图 (a) 所示。相比单模板方法，模板集成可以利用不同 prompt 的互补优势；减轻构建模板的成本，毕竟要选出性能最优 prompt 非常困难；缓解对模板的依赖，使得性能更稳定。</p>
 <p>$q_{\textbf{p}}(y\mid \textbf{x}) :=\frac{1}{K}\sum_{i}^K p(\texttt{[MASK]}=v_y\mid P_i(\textbf{x}))$</p>
