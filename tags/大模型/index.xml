@@ -6,7 +6,24 @@
     <description>Recent content in 大模型 on 冷眸</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 15 Apr 2023 18:12:17 +0000</lastBuildDate><atom:link href="https://blog.pydaxing.com/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 16 Oct 2023 19:12:17 +0000</lastBuildDate><atom:link href="https://blog.pydaxing.com/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Code LlMa</title>
+      <link>https://blog.pydaxing.com/post/20231018_codellama/</link>
+      <pubDate>Mon, 16 Oct 2023 19:12:17 +0000</pubDate>
+      
+      <guid>https://blog.pydaxing.com/post/20231018_codellama/</guid>
+      <description>1、简介 2023年，Meta AI发布了一系列的Code Llama，这些Code Llama都是基于Llama 2的大型语言模型，专门用于生成代码。该项目提供了多个版本的模型，包括基础模型（Code Llama）、针对Python的专业化模型（Code Llama - Python）以及可以根据指令进行操作的模型（Code Llama - Instruct）。这些模型在开放模型领域提供了最先进的性能、填充能力，能够支持大规模的输入上下文，并具备零样本学习（zero-shot learning）编程任务指令跟随的能力。
+2、背景 使用大规模的领域内数据集可以显著提高模型在自然语言和领域特定语言、专业术语等方面的理解能力，进而在程序合成、代码补全、调试和生成文档等方向的应用中取得更好的性能。目前已有的代码大模型方案存在一些问题，而Codellama提供了相应的解决方案。
+代码能力训练： 基础模型如AlphaCode、InCoder和StarCoder等模型只在代码数据上进行预训练，而Codex是基于通用语言模型微调而来的。相比于只在代码数据上进行预训练的模型，Codellama基于Llama2在通用数据和代码数据上进行了预训练，实验证明其性能更好。
+代码填充/补全： LLMs的自回归训练和微调适用于提示完成，但在考虑完整的上下文情况下填补缺失的文本部分方面存在一定的限制。为了解决这个问题，Codellama采用了多任务训练损失，包括自回归和因果填充预测，使得Codellama可以在源代码编辑器中实现实时补全和文档字符串生成等应用。
+长上下文： llama2支持的4096个token输入序列长度在代码领域可能不够。为了解决这个问题，Codellama提出了一个额外的微调阶段，通过修改llama2使用的RoPE位置编码，将序列长度从4096扩展到100,000。
+指令微调： 指令微调有助于避免生成不安全、有毒或带有偏见的代码。Codellama的-instruct变种进一步在混合专有指令数据上进行微调，以提高安全性和实用性；通过采用self-instruct的方式生成一个新的数据集，其中llama2用于生成问题，而Code Llama用于生成相应的单元测试和解决方案。
+3、Code LlaMA方案 3.1、Code LlaMA系列 Code Llama提供了在所有开源模型中的最先进性能、填充能力、支持大输入上下文以及zero-shot编程任务指令跟随能力。它提供了多个版本，以满足不同应用的需求：
+基础模型（Code Llama）： 参数为7B，用于通用代码生成任务。 用于代码生成的基础模型，有三种参数大小：7B、13B和34B。 7B和13B模型使用填充目标进行训练，适用于在集成开发环境（IDE）中补全代码等中间任务。 34B模型没有使用填充目标训练。 所有模型都是在Llama2基础上初始化，并使用了500B的训练数据。 经过长文本微调的训练。 Python专业化版本（Code Llama - Python）： 参数为13B，针对Python编程的任务进行了优化。 专门用于Python代码生成，有三种大小的模型参数：7B、13B和34B。 旨在研究针对单一编程语言定制的模型与通用代码生成模型在性能上的差异。 所有模型都是从Llama2基础上初始化，并首先进行500B数据的预训练，然后使用100B的Python数据进行专门强化。 所有Code Llama-Python模型都没有使用填充填充目标训。 经过长文本微调的训练。 指令模型（Code Llama - Instruct）： 参数为34B，支持根据指令进行代码生成。 基于Code Llama初始化，经过额外的5B token训练数据微调，以更好地遵循人类指令。 每个版本都在16k token序列上进行训练，并对最多包含100k token的输入进行了长序列改进。7B和13B的Code Llama以及Code Llama - Instruct等变种支持填充补全能力。Code Llama在多个代码基准测试中展现了开放模型中的最先进性能，特别是在HumanEval和MBPP测试中，分数分别达到53%和55%（优于Llama2 70B模型）。而在多语言MultiPL-E测试中，Code Llama的精度也超过了所有开源模型。
+最重要的是Code Llama遵循与Llama2相同的开源协议，并允许进行研究和商业用途。</description>
+    </item>
+    
     <item>
       <title>一文从入门到精通Prompt工程</title>
       <link>https://blog.pydaxing.com/post/prompt-%E5%B7%A5%E7%A8%8B%E8%B0%83%E7%A0%94/</link>

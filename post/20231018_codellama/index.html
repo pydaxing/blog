@@ -1,0 +1,529 @@
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready lg:text-base"
+  style="--bg: #fbfbfb"
+  lang="zh-cn"
+>
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>Code LlMa - 冷眸</title>
+
+  
+  <meta name="theme-color" />
+
+  
+  
+  
+  <meta name="description" content="1、简介 2023年，Meta AI发布了一系列的Code Llama，这些Code Llama都是基于Llama 2的大型语言模型，专门用于生成代码。该项目提供了多个版本的模型，包括基础模型（Code Llama）、针对Python的专业化模型（Code Llama - Python）以及可以根据指令进行操作的模型（Code Llama - Instruct）。这些模型在开放模型领域提供了最先进的性能、填充能力，能够支持大规模的输入上下文，并具备零样本学习（zero-shot learning）编程任务指令跟随的能力。
+2、背景 使用大规模的领域内数据集可以显著提高模型在自然语言和领域特定语言、专业术语等方面的理解能力，进而在程序合成、代码补全、调试和生成文档等方向的应用中取得更好的性能。目前已有的代码大模型方案存在一些问题，而Codellama提供了相应的解决方案。
+代码能力训练： 基础模型如AlphaCode、InCoder和StarCoder等模型只在代码数据上进行预训练，而Codex是基于通用语言模型微调而来的。相比于只在代码数据上进行预训练的模型，Codellama基于Llama2在通用数据和代码数据上进行了预训练，实验证明其性能更好。
+代码填充/补全： LLMs的自回归训练和微调适用于提示完成，但在考虑完整的上下文情况下填补缺失的文本部分方面存在一定的限制。为了解决这个问题，Codellama采用了多任务训练损失，包括自回归和因果填充预测，使得Codellama可以在源代码编辑器中实现实时补全和文档字符串生成等应用。
+长上下文： llama2支持的4096个token输入序列长度在代码领域可能不够。为了解决这个问题，Codellama提出了一个额外的微调阶段，通过修改llama2使用的RoPE位置编码，将序列长度从4096扩展到100,000。
+指令微调： 指令微调有助于避免生成不安全、有毒或带有偏见的代码。Codellama的-instruct变种进一步在混合专有指令数据上进行微调，以提高安全性和实用性；通过采用self-instruct的方式生成一个新的数据集，其中llama2用于生成问题，而Code Llama用于生成相应的单元测试和解决方案。
+3、Code LlaMA方案 3.1、Code LlaMA系列 Code Llama提供了在所有开源模型中的最先进性能、填充能力、支持大输入上下文以及zero-shot编程任务指令跟随能力。它提供了多个版本，以满足不同应用的需求：
+基础模型（Code Llama）： 参数为7B，用于通用代码生成任务。 用于代码生成的基础模型，有三种参数大小：7B、13B和34B。 7B和13B模型使用填充目标进行训练，适用于在集成开发环境（IDE）中补全代码等中间任务。 34B模型没有使用填充目标训练。 所有模型都是在Llama2基础上初始化，并使用了500B的训练数据。 经过长文本微调的训练。 Python专业化版本（Code Llama - Python）： 参数为13B，针对Python编程的任务进行了优化。 专门用于Python代码生成，有三种大小的模型参数：7B、13B和34B。 旨在研究针对单一编程语言定制的模型与通用代码生成模型在性能上的差异。 所有模型都是从Llama2基础上初始化，并首先进行500B数据的预训练，然后使用100B的Python数据进行专门强化。 所有Code Llama-Python模型都没有使用填充填充目标训。 经过长文本微调的训练。 指令模型（Code Llama - Instruct）： 参数为34B，支持根据指令进行代码生成。 基于Code Llama初始化，经过额外的5B token训练数据微调，以更好地遵循人类指令。 每个版本都在16k token序列上进行训练，并对最多包含100k token的输入进行了长序列改进。7B和13B的Code Llama以及Code Llama - Instruct等变种支持填充补全能力。Code Llama在多个代码基准测试中展现了开放模型中的最先进性能，特别是在HumanEval和MBPP测试中，分数分别达到53%和55%（优于Llama2 70B模型）。而在多语言MultiPL-E测试中，Code Llama的精度也超过了所有开源模型。
+最重要的是Code Llama遵循与Llama2相同的开源协议，并允许进行研究和商业用途。" />
+  <meta name="author" content="冷眸" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="https://blog.pydaxing.com/main.min.css" />
+
+  
+  <script
+    defer
+    src="https://blog.pydaxing.com/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
+  
+
+  
+     
+  <link rel="preload" as="image" href="https://blog.pydaxing.com/theme.svg" />
+
+  
+  
+  
+  <link rel="preload" as="image" href="https://blog.pydaxing.com/eye.png" />
+  
+  
+
+  
+  
+
+  
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css"
+  integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI"
+  crossorigin="anonymous"
+/>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js"
+  integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t"
+  crossorigin="anonymous"
+></script>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js"
+  integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+  crossorigin="anonymous"
+></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () =>
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+          ],
+          
+          throwOnError : false
+        })
+    );
+</script>
+
+  
+  
+  
+
+  
+  <link rel="icon" href="https://blog.pydaxing.com/eye.png" />
+  <link rel="apple-touch-icon" href="https://blog.pydaxing.com/apple-touch-icon.png" />
+
+
+  
+  <meta name="generator" content="Hugo 0.118.2">
+
+  
+  
+
+  
+  
+  
+  
+  
+  <meta itemprop="name" content="Code LlMa">
+<meta itemprop="description" content="1、简介 2023年，Meta AI发布了一系列的Code Llama，这些Code Llama都是基于Llama 2的大型语言模型，专门用于生成代码。该项目提供了多个版本的模型，包括基础模型（Code Llama）、针对Python的专业化模型（Code Llama - Python）以及可以根据指令进行操作的模型（Code Llama - Instruct）。这些模型在开放模型领域提供了最先进的性能、填充能力，能够支持大规模的输入上下文，并具备零样本学习（zero-shot learning）编程任务指令跟随的能力。
+2、背景 使用大规模的领域内数据集可以显著提高模型在自然语言和领域特定语言、专业术语等方面的理解能力，进而在程序合成、代码补全、调试和生成文档等方向的应用中取得更好的性能。目前已有的代码大模型方案存在一些问题，而Codellama提供了相应的解决方案。
+代码能力训练： 基础模型如AlphaCode、InCoder和StarCoder等模型只在代码数据上进行预训练，而Codex是基于通用语言模型微调而来的。相比于只在代码数据上进行预训练的模型，Codellama基于Llama2在通用数据和代码数据上进行了预训练，实验证明其性能更好。
+代码填充/补全： LLMs的自回归训练和微调适用于提示完成，但在考虑完整的上下文情况下填补缺失的文本部分方面存在一定的限制。为了解决这个问题，Codellama采用了多任务训练损失，包括自回归和因果填充预测，使得Codellama可以在源代码编辑器中实现实时补全和文档字符串生成等应用。
+长上下文： llama2支持的4096个token输入序列长度在代码领域可能不够。为了解决这个问题，Codellama提出了一个额外的微调阶段，通过修改llama2使用的RoPE位置编码，将序列长度从4096扩展到100,000。
+指令微调： 指令微调有助于避免生成不安全、有毒或带有偏见的代码。Codellama的-instruct变种进一步在混合专有指令数据上进行微调，以提高安全性和实用性；通过采用self-instruct的方式生成一个新的数据集，其中llama2用于生成问题，而Code Llama用于生成相应的单元测试和解决方案。
+3、Code LlaMA方案 3.1、Code LlaMA系列 Code Llama提供了在所有开源模型中的最先进性能、填充能力、支持大输入上下文以及zero-shot编程任务指令跟随能力。它提供了多个版本，以满足不同应用的需求：
+基础模型（Code Llama）： 参数为7B，用于通用代码生成任务。 用于代码生成的基础模型，有三种参数大小：7B、13B和34B。 7B和13B模型使用填充目标进行训练，适用于在集成开发环境（IDE）中补全代码等中间任务。 34B模型没有使用填充目标训练。 所有模型都是在Llama2基础上初始化，并使用了500B的训练数据。 经过长文本微调的训练。 Python专业化版本（Code Llama - Python）： 参数为13B，针对Python编程的任务进行了优化。 专门用于Python代码生成，有三种大小的模型参数：7B、13B和34B。 旨在研究针对单一编程语言定制的模型与通用代码生成模型在性能上的差异。 所有模型都是从Llama2基础上初始化，并首先进行500B数据的预训练，然后使用100B的Python数据进行专门强化。 所有Code Llama-Python模型都没有使用填充填充目标训。 经过长文本微调的训练。 指令模型（Code Llama - Instruct）： 参数为34B，支持根据指令进行代码生成。 基于Code Llama初始化，经过额外的5B token训练数据微调，以更好地遵循人类指令。 每个版本都在16k token序列上进行训练，并对最多包含100k token的输入进行了长序列改进。7B和13B的Code Llama以及Code Llama - Instruct等变种支持填充补全能力。Code Llama在多个代码基准测试中展现了开放模型中的最先进性能，特别是在HumanEval和MBPP测试中，分数分别达到53%和55%（优于Llama2 70B模型）。而在多语言MultiPL-E测试中，Code Llama的精度也超过了所有开源模型。
+最重要的是Code Llama遵循与Llama2相同的开源协议，并允许进行研究和商业用途。"><meta itemprop="datePublished" content="2023-10-16T19:12:17+00:00" />
+<meta itemprop="dateModified" content="2023-10-16T19:12:17+00:00" />
+<meta itemprop="wordCount" content="201">
+<meta itemprop="keywords" content="大模型," />
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Code LlMa"/>
+<meta name="twitter:description" content="1、简介 2023年，Meta AI发布了一系列的Code Llama，这些Code Llama都是基于Llama 2的大型语言模型，专门用于生成代码。该项目提供了多个版本的模型，包括基础模型（Code Llama）、针对Python的专业化模型（Code Llama - Python）以及可以根据指令进行操作的模型（Code Llama - Instruct）。这些模型在开放模型领域提供了最先进的性能、填充能力，能够支持大规模的输入上下文，并具备零样本学习（zero-shot learning）编程任务指令跟随的能力。
+2、背景 使用大规模的领域内数据集可以显著提高模型在自然语言和领域特定语言、专业术语等方面的理解能力，进而在程序合成、代码补全、调试和生成文档等方向的应用中取得更好的性能。目前已有的代码大模型方案存在一些问题，而Codellama提供了相应的解决方案。
+代码能力训练： 基础模型如AlphaCode、InCoder和StarCoder等模型只在代码数据上进行预训练，而Codex是基于通用语言模型微调而来的。相比于只在代码数据上进行预训练的模型，Codellama基于Llama2在通用数据和代码数据上进行了预训练，实验证明其性能更好。
+代码填充/补全： LLMs的自回归训练和微调适用于提示完成，但在考虑完整的上下文情况下填补缺失的文本部分方面存在一定的限制。为了解决这个问题，Codellama采用了多任务训练损失，包括自回归和因果填充预测，使得Codellama可以在源代码编辑器中实现实时补全和文档字符串生成等应用。
+长上下文： llama2支持的4096个token输入序列长度在代码领域可能不够。为了解决这个问题，Codellama提出了一个额外的微调阶段，通过修改llama2使用的RoPE位置编码，将序列长度从4096扩展到100,000。
+指令微调： 指令微调有助于避免生成不安全、有毒或带有偏见的代码。Codellama的-instruct变种进一步在混合专有指令数据上进行微调，以提高安全性和实用性；通过采用self-instruct的方式生成一个新的数据集，其中llama2用于生成问题，而Code Llama用于生成相应的单元测试和解决方案。
+3、Code LlaMA方案 3.1、Code LlaMA系列 Code Llama提供了在所有开源模型中的最先进性能、填充能力、支持大输入上下文以及zero-shot编程任务指令跟随能力。它提供了多个版本，以满足不同应用的需求：
+基础模型（Code Llama）： 参数为7B，用于通用代码生成任务。 用于代码生成的基础模型，有三种参数大小：7B、13B和34B。 7B和13B模型使用填充目标进行训练，适用于在集成开发环境（IDE）中补全代码等中间任务。 34B模型没有使用填充目标训练。 所有模型都是在Llama2基础上初始化，并使用了500B的训练数据。 经过长文本微调的训练。 Python专业化版本（Code Llama - Python）： 参数为13B，针对Python编程的任务进行了优化。 专门用于Python代码生成，有三种大小的模型参数：7B、13B和34B。 旨在研究针对单一编程语言定制的模型与通用代码生成模型在性能上的差异。 所有模型都是从Llama2基础上初始化，并首先进行500B数据的预训练，然后使用100B的Python数据进行专门强化。 所有Code Llama-Python模型都没有使用填充填充目标训。 经过长文本微调的训练。 指令模型（Code Llama - Instruct）： 参数为34B，支持根据指令进行代码生成。 基于Code Llama初始化，经过额外的5B token训练数据微调，以更好地遵循人类指令。 每个版本都在16k token序列上进行训练，并对最多包含100k token的输入进行了长序列改进。7B和13B的Code Llama以及Code Llama - Instruct等变种支持填充补全能力。Code Llama在多个代码基准测试中展现了开放模型中的最先进性能，特别是在HumanEval和MBPP测试中，分数分别达到53%和55%（优于Llama2 70B模型）。而在多语言MultiPL-E测试中，Code Llama的精度也超过了所有开源模型。
+最重要的是Code Llama遵循与Llama2相同的开源协议，并允许进行研究和商业用途。"/>
+
+  
+  
+
+  <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css"/>
+</head>
+
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[4.5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a
+      class="-translate-x-[1px] -translate-y-[1px] text-2xl font-semibold"
+      href="https://blog.pydaxing.com"
+      >冷眸</a
+    >
+    <div
+      class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
+      role="button"
+      aria-label="Dark"
+    ></div>
+  </div>
+
+  <div
+    class="btn-menu relative z-50 -mr-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+    role="button"
+    aria-label="Menu"
+  ></div>
+
+  
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = '#fbfbfb'.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/"
+        >文章</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/tags/"
+        >标签</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/archive/"
+        >归档</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/about/"
+        >关于</a
+      >
+      
+    </nav>
+    
+
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-3xl px-8 pb-16 pt-12 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">Code LlMa</h1>
+
+    
+    <div class="text-sm antialiased opacity-60">
+      
+      <time>Oct 16, 2023</time>
+      
+      
+      
+      
+      <span class="mx-1">&middot;</span>
+      <span>冷眸</span>
+      
+    </div>
+    
+  </header>
+
+  <div class="toc mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]">
+  <details >
+  <summary accesskey="c" title="(Alt + C)">
+    <span class="details" style="font-weight: bold; font-size: 18px">目 录</span>
+  </summary>
+
+  <div class="inner"><ul>
+      <li>
+        <a href="#1%e7%ae%80%e4%bb%8b" aria-label="1、简介">1、简介</a></li>
+      <li>
+        <a href="#2%e8%83%8c%e6%99%af" aria-label="2、背景">2、背景</a></li>
+      <li>
+        <a href="#3code-llama%e6%96%b9%e6%a1%88" aria-label="3、Code LlaMA方案">3、Code LlaMA方案</a><ul>
+          
+      <li>
+        <a href="#31code-llama%e7%b3%bb%e5%88%97" aria-label="3.1、Code LlaMA系列">3.1、Code LlaMA系列</a></li>
+      <li>
+        <a href="#32%e6%95%b0%e6%8d%ae%e9%9b%86" aria-label="3.2、数据集">3.2、数据集</a></li>
+      <li>
+        <a href="#33%e4%bc%98%e5%8c%96%e5%99%a8" aria-label="3.3、优化器">3.3、优化器</a></li>
+      <li>
+        <a href="#34%e8%ae%ad%e7%bb%83%e6%96%b9%e5%bc%8fcode-llama%e6%a0%b8%e5%bf%83%e8%b4%a1%e7%8c%ae%e7%82%b9" aria-label="3.4、训练方式（Code LlaMA核心贡献点）">3.4、训练方式（Code LlaMA核心贡献点）</a><ul>
+          
+      <li>
+        <a href="#341%e5%a1%ab%e5%85%85%e8%ae%ad%e7%bb%83" aria-label="3.4.1、填充训练">3.4.1、填充训练</a></li>
+      <li>
+        <a href="#342%e9%95%bf%e6%96%87%e6%9c%ac%e8%ae%ad%e7%bb%83" aria-label="3.4.2、长文本训练">3.4.2、长文本训练</a></li>
+      <li>
+        <a href="#343%e6%8c%87%e4%bb%a4%e5%be%ae%e8%b0%83" aria-label="3.4.3、指令微调">3.4.3、指令微调</a>
+      </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+  </div>
+  </details>
+</div>
+  
+
+  <section><h2 id="1简介">1、简介</h2>
+<p>2023年，Meta AI发布了一系列的Code Llama，这些Code Llama都是基于Llama 2的大型语言模型，专门用于生成代码。该项目提供了多个版本的模型，包括基础模型（Code Llama）、针对Python的专业化模型（Code Llama - Python）以及可以根据指令进行操作的模型（Code Llama - Instruct）。这些模型在开放模型领域提供了最先进的性能、填充能力，能够支持大规模的输入上下文，并具备零样本学习（zero-shot learning）编程任务指令跟随的能力。</p>
+<h2 id="2背景">2、背景</h2>
+<p>使用大规模的领域内数据集可以显著提高模型在自然语言和领域特定语言、专业术语等方面的理解能力，进而在程序合成、代码补全、调试和生成文档等方向的应用中取得更好的性能。目前已有的代码大模型方案存在一些问题，而Codellama提供了相应的解决方案。</p>
+<p><strong>代码能力训练：</strong>
+基础模型如AlphaCode、InCoder和StarCoder等模型只在代码数据上进行预训练，而Codex是基于通用语言模型微调而来的。相比于只在代码数据上进行预训练的模型，Codellama基于Llama2在通用数据和代码数据上进行了预训练，实验证明其性能更好。</p>
+<p><strong>代码填充/补全：</strong>
+LLMs的自回归训练和微调适用于提示完成，但在考虑完整的上下文情况下填补缺失的文本部分方面存在一定的限制。为了解决这个问题，Codellama采用了多任务训练损失，包括自回归和因果填充预测，使得Codellama可以在源代码编辑器中实现实时补全和文档字符串生成等应用。</p>
+<p><strong>长上下文：</strong>
+llama2支持的4096个token输入序列长度在代码领域可能不够。为了解决这个问题，Codellama提出了一个额外的微调阶段，通过修改llama2使用的RoPE位置编码，将序列长度从4096扩展到100,000。</p>
+<p><strong>指令微调：</strong>
+指令微调有助于避免生成不安全、有毒或带有偏见的代码。Codellama的-instruct变种进一步在混合专有指令数据上进行微调，以提高安全性和实用性；通过采用self-instruct的方式生成一个新的数据集，其中llama2用于生成问题，而Code Llama用于生成相应的单元测试和解决方案。</p>
+<h2 id="3code-llama方案">3、Code LlaMA方案</h2>
+<h3 id="31code-llama系列">3.1、Code LlaMA系列</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/35173834/1697600480401-c48fdfc7-4bcf-446c-a7ee-5267af8968ec.png?x-oss-process=image%2Fresize%2Cw_1488%2Climit_0" alt="image"></p>
+<p>Code Llama提供了在所有开源模型中的最先进性能、填充能力、支持大输入上下文以及zero-shot编程任务指令跟随能力。它提供了多个版本，以满足不同应用的需求：</p>
+<ol>
+<li><strong>基础模型（Code Llama）：</strong> 参数为7B，用于通用代码生成任务。
+<ul>
+<li>用于代码生成的基础模型，有三种参数大小：7B、13B和34B。</li>
+<li>7B和13B模型使用填充目标进行训练，适用于在集成开发环境（IDE）中补全代码等中间任务。</li>
+<li>34B模型没有使用填充目标训练。</li>
+<li>所有模型都是在Llama2基础上初始化，并使用了500B的训练数据。</li>
+<li>经过长文本微调的训练。</li>
+</ul>
+</li>
+<li><strong>Python专业化版本（Code Llama - Python）：</strong> 参数为13B，针对Python编程的任务进行了优化。
+<ul>
+<li>专门用于Python代码生成，有三种大小的模型参数：7B、13B和34B。</li>
+<li>旨在研究针对单一编程语言定制的模型与通用代码生成模型在性能上的差异。</li>
+<li>所有模型都是从Llama2基础上初始化，并首先进行500B数据的预训练，然后使用100B的Python数据进行专门强化。</li>
+<li>所有Code Llama-Python模型都没有使用填充填充目标训。</li>
+<li>经过长文本微调的训练。</li>
+</ul>
+</li>
+<li><strong>指令模型（Code Llama - Instruct）：</strong> 参数为34B，支持根据指令进行代码生成。
+<ul>
+<li>基于Code Llama初始化，经过额外的5B token训练数据微调，以更好地遵循人类指令。</li>
+</ul>
+</li>
+</ol>
+<p>每个版本都在16k token序列上进行训练，并对最多包含100k token的输入进行了长序列改进。7B和13B的Code Llama以及Code Llama - Instruct等变种支持填充补全能力。Code Llama在多个代码基准测试中展现了开放模型中的最先进性能，特别是在HumanEval和MBPP测试中，分数分别达到53%和55%（优于Llama2 70B模型）。而在多语言MultiPL-E测试中，Code Llama的精度也超过了所有开源模型。</p>
+<p><strong>最重要的是Code Llama遵循与Llama2相同的开源协议，并允许进行研究和商业用途。</strong></p>
+<h3 id="32数据集">3.2、数据集</h3>
+<p>Codellama使用了没有重复数据的公开可用代码数据集进行训练的。此外，还从与代码相关的自然语言数据集中获取了8%的样本数据。这个数据集包含了许多关于代码的讨论，其中部分问题或答案中包含了代码片段。为了保持自然语言理解能力，还采样了7%的自然语言数据。</p>
+<h3 id="33优化器">3.3、优化器</h3>
+<ol>
+<li>优化器采用的是 AdamW（Loshchilov &amp; Hutter，2019），β1 和 β2 的值分别设为 0.9 和 0.95。</li>
+<li>使用了一个包含1000个预热步骤的余弦调度，并将最终的学习率设置为峰值学习率的1/30</li>
+<li>使用了一个批次大小为 400 万个 token，每个序列为 4096 个token。</li>
+<li>尽管在微调阶段使用比预训阶段低的学习率是标准做法，但论文发现保留 Llama 2 基础模型的原始学习率时获得了最好的结果。作者把这些发现应用到了 13B 和 34B 的模型中，并分别将它们的学习率设置为 3e−4 和 1.5e−4。</li>
+<li>对于 Python 微调，论文将初始学习率设置为 1e−4。对于 Code Llama - Instruct，他们用一个批次大小为 524,288 个 token 进行训练，总共训练了大约 50 亿个 token。</li>
+</ol>
+<h3 id="34训练方式code-llama核心贡献点">3.4、训练方式（Code LlaMA核心贡献点）</h3>
+<h4 id="341填充训练">3.4.1、填充训练</h4>
+<p>代码填充是指在给定周围上下文的情况下预测代码中缺失部分的任务。这个任务在代码集成开发环境（IDE）中具有多种应用，包括代码补全、类型推断和生成代码内部文档等。
+为了训练填充模型，Codellama采用了因果掩码（causal masking）的概念，把填充部分被移到序列的末尾，并通过自回归预测的方式来进行训练。
+具体来说，训练文档在字符级别上被划分为前缀、中间部分和后缀，并通过独立采样确定划分的位置，且分割操作仅应用于那些没有跨越多个模型上下文的文档。分割后的数据一半采用前缀-中间-后缀（PSM）格式，另一半采用后缀-前缀-中间（SPM）格式，以提高模型的多样性。另外，Codellama扩展了Llama 2的分词器，添加了四个特殊标记，用于标记前缀、中间部分和后缀的开始，以及填充的结束。为了保持自回归训练和填充训练之间的分布一致性，Codellama抑制了SentencePiece分词器在编码中间部分和后缀时添加的隐式前导空格。</p>
+<h4 id="342长文本训练">3.4.2、长文本训练</h4>
+<p>在基于Transformer的语言建模中，处理长序列是一个重要的挑战。由于外推问题及注意力传递的二次复杂度，一般的建模方法通常更适用于短到中等长度的输入。为了解决这个问题，Code Llama提出了一个专门的长上下文微调（LCFT）阶段。通过将处理长序列的训练时间限制在微调阶段，Code Llama在不显著增加模型训练成本的情况下，获得了处理长距离序列的能力。
+Code Llama的策略类似于最近提出的&quot;Extending context window of large language models via positional interpolation&quot;一文中的位置插值微调，并且Code Llama还修改Llama 2基础模型中使用的旋转位置编码的的旋转频率，Code Llama对RoPE（Rotated Positional Embedding）的基本周期进行了修改：</p>
+<p>$$(R_{\Theta,n}^{d})=\begin{matrix}\text{cos}(n\theta_i)&amp;\text{-sin}(n\theta_i) \\ \text{sin}(n\theta_i)&amp;\text{cos}(n\theta_i) \end{matrix}$$</p>
+<p>在本文中，基础周期θ从10000增加到1000000，据公式$\theta_i=\theta^{-2i/d}$可知，增加基础周期θ可以让模型更有效地处理长序列。实验证明，Code Llama模型不仅在微调阶段增加的序列长度范围内表现良好，还在长达100,000个token的长序列上展示了稳定的外推能力。</p>
+<ol>
+<li>对于长上下文微调 (LCFT)，作者使用了2e−5的学习率</li>
+<li>16384的序列长度，并重置 RoPE 频率，基值为θ = 10^6</li>
+<li>批次大小对于7B和13B的模型大小设置为200万个 token，对于34B的模型大小设置为100万个 token</li>
+<li>默认情况下，训练持续进行10,000个梯度跟新 step，作者观察到某些配置的下游性能存在不稳定性，因此他们将34B模型的梯度步数设置为11,000，将 Code Llama 7B 的梯度步数设置为3,000。</li>
+</ol>
+<h4 id="343指令微调">3.4.3、指令微调</h4>
+<p>主要使用了三种数据来源：</p>
+<ol>
+<li><strong>专有数据集</strong>：Code Llama使用了Llama2中的RLHF V5版本数据集。该数据集通过多个强化学习阶段从人类反馈和人类反馈注释中收集而来。数据集中包含数千个监督微调样本和数百万个拒绝抽样样本。</li>
+<li><strong>Self-instruct（自我指导）</strong>：Code Llama还使用了一个自我指导流程生成了14,000个问题-测试-解决方案三元组的数据集。</li>
+</ol>
+<ul>
+<li>通过提示 Llama 2 70B 生成 62,000 个面试风格的编程问题。</li>
+<li>删除重复项，对问题集进行去重，最终得到大约 52,000 个问题。</li>
+<li>对于每一个问题：
+<ul>
+<li>提示 Code Llama 7B 生成单元测试</li>
+<li>提示 Code Llama 7B 生成十个 Python 解决方案</li>
+<li>在十个解决方案上运行单元测试。将第一个通过测试的解决方案（以及其对应的问题和测试）添加到最终的数据集中。</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li><strong>回放</strong>：为了防止Code Llama - Instruct模型在普通编码和语言理解能力方面出现倒退，它还使用了来自代码数据集（6%）和自然语言数据集（2%）的少量数据进行训练。这种方式被称为&quot;Rehearsal&quot;（回放），通过在训练过程中引入先前的数据样本，有助于保持模型在不同任务和领域上的综合能力。</li>
+</ol>
+</section>
+
+  
+  
+  <footer class="mt-12 flex flex-wrap">
+     
+    <a
+      class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]"
+      href="https://blog.pydaxing.com/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B"
+      >大模型</a
+    >
+    
+  </footer>
+  
+
+  
+  
+  
+  
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="https://blog.pydaxing.com/post/prompt-%E5%B7%A5%E7%A8%8B%E8%B0%83%E7%A0%94/"
+      ><span>一文从入门到精通Prompt工程</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+  
+
+  
+  <div id="waline" style="margin-top: 2em"></div>
+  <script type="module">
+    import { init } from 'https://unpkg.com/@waline/client@v2/dist/waline.mjs';
+    const config = {
+      el: '#waline',
+      lang: 'zh-CN',
+      meta: ['nick', 'mail'],
+      requiredMeta: ['nick', 'mail'],
+      pageSize: 10,
+      avatar: 'monsterid',
+      wordLimit: 100,
+      dark: 'auto',
+      serverURL: 'https://comment.pydaxing.com/.netlify/functions/comment/'
+    };
+    setTimeout(function() {
+      init(config);
+      var poweredby = document.querySelector('.wl-power');
+      poweredby.remove();
+    }, 500);
+  </script>
+  
+
+
+  
+  
+
+  
+  
+</article>
+
+
+    </main>
+
+    <footer
+  class="opaco mx-auto flex h-[4.5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
+>
+  <div class="mr-auto">
+    &copy; 2023
+    <a class="link" href="https://blog.pydaxing.com">冷眸</a>
+  </div>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >Powered by Hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >✎ Paper</a
+  >
+</footer>
+
+  </body>
+</html>
