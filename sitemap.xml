@@ -2,19 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://blog.pydaxing.com/post/20231018_codellama/</loc>
-    <lastmod>2023-10-16T19:12:17+00:00</lastmod>
+    <loc>https://blog.pydaxing.com/tags/ai-data-analysis/</loc>
+    <lastmod>2023-11-18T12:18:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.pydaxing.com/post/</loc>
-    <lastmod>2023-10-16T19:12:17+00:00</lastmod>
+    <lastmod>2023-11-18T12:18:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.pydaxing.com/tags/</loc>
-    <lastmod>2023-10-16T19:12:17+00:00</lastmod>
+    <lastmod>2023-11-18T12:18:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.pydaxing.com/</loc>
-    <lastmod>2023-10-16T19:12:17+00:00</lastmod>
+    <lastmod>2023-11-18T12:18:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.pydaxing.com/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/</loc>
+    <lastmod>2023-11-18T12:18:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.pydaxing.com/post/20231119_nl2sql_prompt2finetune/</loc>
+    <lastmod>2023-11-18T12:18:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.pydaxing.com/post/20231018_codellama/</loc>
     <lastmod>2023-10-16T19:12:17+00:00</lastmod>
   </url><url>
     <loc>https://blog.pydaxing.com/post/prompt-%E5%B7%A5%E7%A8%8B%E8%B0%83%E7%A0%94/</loc>

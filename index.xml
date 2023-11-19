@@ -6,7 +6,22 @@
     <description>Recent content on 冷眸</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 16 Oct 2023 19:12:17 +0000</lastBuildDate><atom:link href="https://blog.pydaxing.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Nov 2023 12:18:00 +0000</lastBuildDate><atom:link href="https://blog.pydaxing.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>深入解析LLM Text-2-SQL：从Prompt到Finetune全网最详尽攻略</title>
+      <link>https://blog.pydaxing.com/post/20231119_nl2sql_prompt2finetune/</link>
+      <pubDate>Sat, 18 Nov 2023 12:18:00 +0000</pubDate>
+      
+      <guid>https://blog.pydaxing.com/post/20231119_nl2sql_prompt2finetune/</guid>
+      <description>1、LLM技术在Text-to-SQL上的现状 Text-to-SQL解决方案在大型语言模型（LLM）的支持下得到了广泛应用，但是现有的提示工程方法缺乏系统性，阻碍了该领域的发展。
+为了更深入地探讨基于LLM的Text-to-SQL解决方案的提示工程系统化研究，我们需要全面理解和实践，覆盖了不同的LLM、问题表示、示例选择和组织策略，以探索如何与LLM良好配合。具体而言，提示工程分为zero-shot和few-shot场景，在zero-shot场景中，需要研究如何有效地表示自然语言问题，包括融入相关信息如相应数据库模式。在few-shot场景中，有限的示例可供使用，因此需要研究如何选择最有帮助的示例，并恰当地组织到提示中。
+本文还探讨了LLM的上下文学习过程，并研究了zero-shot和few-shot场景中LLM的表现，同时也展示了有监督微调方法的利与弊。本文为基于大型语言模型的Text-to-SQL解决方案的系统化研究提供了有益的参考和指导。
+2、问题表示 这里的问题表示是指针对Text-to-SQL任务，设计一个高效的Prompt去激发LLM的Text-to-SQL能力，本质上就是Prompt工程。在zero-shot场景中有五花八门的Prompt模版，这里展示现有文献中四个最具代表性的。此外，再展示一个在 Alpaca中使用的Prompt模板，因为它在监督式微调中非常受欢迎。下表总结了这五种方法：
+问题表示 INS RI FK LLMs EM $\text{BS}_P$ x x x - - $\text{TR}_P$ $\checkmark$ x x Code-Davinci-002 69.0 $\text{OD}_P$ $\checkmark$ $\checkmark$ x GPT-3.5-Turbo GPT-4 70.1 $\text{CR}_P$ $\checkmark$ x $\checkmark$ Code-Davinci-002 GPT-3.5-Turbo 75.6 $\text{AS}_P$ $\checkmark$ x x - EX：SQL执行准确率、INS：指令（任务描述）、RI：规则信息（指导性语句，比如“仅输出SQL语句，无需解释”）、FK：外键（数据库的外键信息）
+2.1、基本提示 基本提示（Basic Prompt）是一种简单的Prompt模板，它由表模式、以 Q: 为前缀的自然语言问题、以及提示LLM生成SQL的响应前缀 A:SELECT 组成。之所以命名为基本提示，是因为它并未包含任何指令内容。
+Table table_name1, columns = [column1, column2, ...] ... Table table_name2, columns = [column1, column2, ...] Q: The question A: SELECT.</description>
+    </item>
+    
     <item>
       <title>Code LlaMA 是怎样练成的: 一文详解代码生成SOTA大模型</title>
       <link>https://blog.pydaxing.com/post/20231018_codellama/</link>

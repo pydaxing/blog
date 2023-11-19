@@ -1,0 +1,645 @@
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready lg:text-base"
+  style="--bg: #fbfbfb"
+  lang="zh-cn"
+>
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>深入解析LLM Text-2-SQL：从Prompt到Finetune全网最详尽攻略 - 冷眸</title>
+
+  
+  <meta name="theme-color" />
+
+  
+  
+  
+  <meta name="description" content="1、LLM技术在Text-to-SQL上的现状 Text-to-SQL解决方案在大型语言模型（LLM）的支持下得到了广泛应用，但是现有的提示工程方法缺乏系统性，阻碍了该领域的发展。
+为了更深入地探讨基于LLM的Text-to-SQL解决方案的提示工程系统化研究，我们需要全面理解和实践，覆盖了不同的LLM、问题表示、示例选择和组织策略，以探索如何与LLM良好配合。具体而言，提示工程分为zero-shot和few-shot场景，在zero-shot场景中，需要研究如何有效地表示自然语言问题，包括融入相关信息如相应数据库模式。在few-shot场景中，有限的示例可供使用，因此需要研究如何选择最有帮助的示例，并恰当地组织到提示中。
+本文还探讨了LLM的上下文学习过程，并研究了zero-shot和few-shot场景中LLM的表现，同时也展示了有监督微调方法的利与弊。本文为基于大型语言模型的Text-to-SQL解决方案的系统化研究提供了有益的参考和指导。
+2、问题表示 这里的问题表示是指针对Text-to-SQL任务，设计一个高效的Prompt去激发LLM的Text-to-SQL能力，本质上就是Prompt工程。在zero-shot场景中有五花八门的Prompt模版，这里展示现有文献中四个最具代表性的。此外，再展示一个在 Alpaca中使用的Prompt模板，因为它在监督式微调中非常受欢迎。下表总结了这五种方法：
+问题表示 INS RI FK LLMs EM $\text{BS}_P$ x x x - - $\text{TR}_P$ $\checkmark$ x x Code-Davinci-002 69.0 $\text{OD}_P$ $\checkmark$ $\checkmark$ x GPT-3.5-Turbo GPT-4 70.1 $\text{CR}_P$ $\checkmark$ x $\checkmark$ Code-Davinci-002 GPT-3.5-Turbo 75.6 $\text{AS}_P$ $\checkmark$ x x - EX：SQL执行准确率、INS：指令（任务描述）、RI：规则信息（指导性语句，比如“仅输出SQL语句，无需解释”）、FK：外键（数据库的外键信息）
+2.1、基本提示 基本提示（Basic Prompt）是一种简单的Prompt模板，它由表模式、以 Q: 为前缀的自然语言问题、以及提示LLM生成SQL的响应前缀 A:SELECT 组成。之所以命名为基本提示，是因为它并未包含任何指令内容。
+Table table_name1, columns = [column1, column2, ...] ... Table table_name2, columns = [column1, column2, ...] Q: The question A: SELECT." />
+  <meta name="author" content="冷眸" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="https://blog.pydaxing.com/main.min.css" />
+
+  
+  <script
+    defer
+    src="https://blog.pydaxing.com/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
+  
+
+  
+     
+  <link rel="preload" as="image" href="https://blog.pydaxing.com/theme.svg" />
+
+  
+  
+  
+  <link rel="preload" as="image" href="https://blog.pydaxing.com/eye.png" />
+  
+  
+
+  
+  
+
+  
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css"
+  integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI"
+  crossorigin="anonymous"
+/>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js"
+  integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t"
+  crossorigin="anonymous"
+></script>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js"
+  integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+  crossorigin="anonymous"
+></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () =>
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+          ],
+          
+          throwOnError : false
+        })
+    );
+</script>
+
+  
+  
+  
+
+  
+  <link rel="icon" href="https://blog.pydaxing.com/eye.png" />
+  <link rel="apple-touch-icon" href="https://blog.pydaxing.com/apple-touch-icon.png" />
+
+
+  
+  <meta name="generator" content="Hugo 0.118.2">
+
+  
+  
+
+  
+  
+  
+  
+  
+  <meta itemprop="name" content="深入解析LLM Text-2-SQL：从Prompt到Finetune全网最详尽攻略">
+<meta itemprop="description" content="1、LLM技术在Text-to-SQL上的现状 Text-to-SQL解决方案在大型语言模型（LLM）的支持下得到了广泛应用，但是现有的提示工程方法缺乏系统性，阻碍了该领域的发展。
+为了更深入地探讨基于LLM的Text-to-SQL解决方案的提示工程系统化研究，我们需要全面理解和实践，覆盖了不同的LLM、问题表示、示例选择和组织策略，以探索如何与LLM良好配合。具体而言，提示工程分为zero-shot和few-shot场景，在zero-shot场景中，需要研究如何有效地表示自然语言问题，包括融入相关信息如相应数据库模式。在few-shot场景中，有限的示例可供使用，因此需要研究如何选择最有帮助的示例，并恰当地组织到提示中。
+本文还探讨了LLM的上下文学习过程，并研究了zero-shot和few-shot场景中LLM的表现，同时也展示了有监督微调方法的利与弊。本文为基于大型语言模型的Text-to-SQL解决方案的系统化研究提供了有益的参考和指导。
+2、问题表示 这里的问题表示是指针对Text-to-SQL任务，设计一个高效的Prompt去激发LLM的Text-to-SQL能力，本质上就是Prompt工程。在zero-shot场景中有五花八门的Prompt模版，这里展示现有文献中四个最具代表性的。此外，再展示一个在 Alpaca中使用的Prompt模板，因为它在监督式微调中非常受欢迎。下表总结了这五种方法：
+问题表示 INS RI FK LLMs EM $\text{BS}_P$ x x x - - $\text{TR}_P$ $\checkmark$ x x Code-Davinci-002 69.0 $\text{OD}_P$ $\checkmark$ $\checkmark$ x GPT-3.5-Turbo GPT-4 70.1 $\text{CR}_P$ $\checkmark$ x $\checkmark$ Code-Davinci-002 GPT-3.5-Turbo 75.6 $\text{AS}_P$ $\checkmark$ x x - EX：SQL执行准确率、INS：指令（任务描述）、RI：规则信息（指导性语句，比如“仅输出SQL语句，无需解释”）、FK：外键（数据库的外键信息）
+2.1、基本提示 基本提示（Basic Prompt）是一种简单的Prompt模板，它由表模式、以 Q: 为前缀的自然语言问题、以及提示LLM生成SQL的响应前缀 A:SELECT 组成。之所以命名为基本提示，是因为它并未包含任何指令内容。
+Table table_name1, columns = [column1, column2, ...] ... Table table_name2, columns = [column1, column2, ...] Q: The question A: SELECT."><meta itemprop="datePublished" content="2023-11-18T12:18:00+00:00" />
+<meta itemprop="dateModified" content="2023-11-18T12:18:00+00:00" />
+<meta itemprop="wordCount" content="363">
+<meta itemprop="keywords" content="大模型,AI Data Analysis," />
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="深入解析LLM Text-2-SQL：从Prompt到Finetune全网最详尽攻略"/>
+<meta name="twitter:description" content="1、LLM技术在Text-to-SQL上的现状 Text-to-SQL解决方案在大型语言模型（LLM）的支持下得到了广泛应用，但是现有的提示工程方法缺乏系统性，阻碍了该领域的发展。
+为了更深入地探讨基于LLM的Text-to-SQL解决方案的提示工程系统化研究，我们需要全面理解和实践，覆盖了不同的LLM、问题表示、示例选择和组织策略，以探索如何与LLM良好配合。具体而言，提示工程分为zero-shot和few-shot场景，在zero-shot场景中，需要研究如何有效地表示自然语言问题，包括融入相关信息如相应数据库模式。在few-shot场景中，有限的示例可供使用，因此需要研究如何选择最有帮助的示例，并恰当地组织到提示中。
+本文还探讨了LLM的上下文学习过程，并研究了zero-shot和few-shot场景中LLM的表现，同时也展示了有监督微调方法的利与弊。本文为基于大型语言模型的Text-to-SQL解决方案的系统化研究提供了有益的参考和指导。
+2、问题表示 这里的问题表示是指针对Text-to-SQL任务，设计一个高效的Prompt去激发LLM的Text-to-SQL能力，本质上就是Prompt工程。在zero-shot场景中有五花八门的Prompt模版，这里展示现有文献中四个最具代表性的。此外，再展示一个在 Alpaca中使用的Prompt模板，因为它在监督式微调中非常受欢迎。下表总结了这五种方法：
+问题表示 INS RI FK LLMs EM $\text{BS}_P$ x x x - - $\text{TR}_P$ $\checkmark$ x x Code-Davinci-002 69.0 $\text{OD}_P$ $\checkmark$ $\checkmark$ x GPT-3.5-Turbo GPT-4 70.1 $\text{CR}_P$ $\checkmark$ x $\checkmark$ Code-Davinci-002 GPT-3.5-Turbo 75.6 $\text{AS}_P$ $\checkmark$ x x - EX：SQL执行准确率、INS：指令（任务描述）、RI：规则信息（指导性语句，比如“仅输出SQL语句，无需解释”）、FK：外键（数据库的外键信息）
+2.1、基本提示 基本提示（Basic Prompt）是一种简单的Prompt模板，它由表模式、以 Q: 为前缀的自然语言问题、以及提示LLM生成SQL的响应前缀 A:SELECT 组成。之所以命名为基本提示，是因为它并未包含任何指令内容。
+Table table_name1, columns = [column1, column2, ...] ... Table table_name2, columns = [column1, column2, ...] Q: The question A: SELECT."/>
+
+  
+  
+
+  <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css"/>
+</head>
+
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[4.5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a
+      class="-translate-x-[1px] -translate-y-[1px] text-2xl font-semibold"
+      href="https://blog.pydaxing.com"
+      >冷眸</a
+    >
+    <div
+      class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
+      role="button"
+      aria-label="Dark"
+    ></div>
+  </div>
+
+  <div
+    class="btn-menu relative z-50 -mr-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+    role="button"
+    aria-label="Menu"
+  ></div>
+
+  
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = '#fbfbfb'.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/"
+        >文章</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/tags/"
+        >标签</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/archive/"
+        >归档</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/about/"
+        >关于</a
+      >
+      
+    </nav>
+    
+
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-3xl px-8 pb-16 pt-12 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">深入解析LLM Text-2-SQL：从Prompt到Finetune全网最详尽攻略</h1>
+
+    
+    <div class="text-sm antialiased opacity-60">
+      
+      <time>Nov 18, 2023</time>
+      
+      
+      
+      
+      <span class="mx-1">&middot;</span>
+      <span>冷眸</span>
+      
+    </div>
+    
+  </header>
+
+  <div class="toc mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]">
+  <details >
+  <summary accesskey="c" title="(Alt + C)">
+    <span class="details" style="font-weight: bold; font-size: 18px">目 录</span>
+  </summary>
+
+  <div class="inner"><ul>
+      <li>
+        <a href="#1llm%e6%8a%80%e6%9c%af%e5%9c%a8text-to-sql%e4%b8%8a%e7%9a%84%e7%8e%b0%e7%8a%b6" aria-label="1、LLM技术在Text-to-SQL上的现状">1、LLM技术在Text-to-SQL上的现状</a></li>
+      <li>
+        <a href="#2%e9%97%ae%e9%a2%98%e8%a1%a8%e7%a4%ba" aria-label="2、问题表示">2、问题表示</a><ul>
+          
+      <li>
+        <a href="#21%e5%9f%ba%e6%9c%ac%e6%8f%90%e7%a4%ba" aria-label="2.1、基本提示">2.1、基本提示</a></li>
+      <li>
+        <a href="#22%e6%96%87%e6%9c%ac%e8%a1%a8%e7%a4%ba%e6%b3%95%e6%8f%90%e7%a4%ba" aria-label="2.2、文本表示法提示">2.2、文本表示法提示</a></li>
+      <li>
+        <a href="#23openai-%e7%a4%ba%e8%8c%83%e6%8f%90%e7%a4%ba" aria-label="2.3、OpenAI 示范提示">2.3、OpenAI 示范提示</a></li>
+      <li>
+        <a href="#24%e4%bb%a3%e7%a0%81%e8%a1%a8%e7%a4%ba%e6%8f%90%e7%a4%ba" aria-label="2.4、代码表示提示">2.4、代码表示提示</a></li>
+      <li>
+        <a href="#25alpace%e6%8c%87%e4%bb%a4%e5%be%ae%e8%b0%83%e6%8f%90%e7%a4%ba" aria-label="2.5、Alpace指令微调提示">2.5、Alpace指令微调提示</a></li></ul>
+      </li>
+      <li>
+        <a href="#3text-to-sql%e7%9a%84%e4%b8%8a%e4%b8%8b%e6%96%87%e5%ad%a6%e4%b9%a0" aria-label="3、Text-to-SQL的上下文学习">3、Text-to-SQL的上下文学习</a><ul>
+          
+      <li>
+        <a href="#31%e7%a4%ba%e4%be%8b%e9%80%89%e6%8b%a9" aria-label="3.1、示例选择">3.1、示例选择</a></li>
+      <li>
+        <a href="#32%e7%a4%ba%e4%be%8b%e7%bb%84%e7%bb%87" aria-label="3.2、示例组织">3.2、示例组织</a></li></ul>
+      </li>
+      <li>
+        <a href="#4%e4%b8%80%e4%b8%aa%e6%96%b0%e7%9a%84text-to-sql%e6%96%b9%e6%a1%88dail-sql" aria-label="4、一个新的Text-to-SQL方案：DAIL-SQL">4、一个新的Text-to-SQL方案：DAIL-SQL</a></li>
+      <li>
+        <a href="#5text-to-sql%e7%9a%84%e7%9b%91%e7%9d%a3%e5%be%ae%e8%b0%83" aria-label="5、Text-to-SQL的监督微调">5、Text-to-SQL的监督微调</a></li>
+      <li>
+        <a href="#6%e7%9b%b8%e5%85%b3%e5%ae%9e%e9%aa%8c" aria-label="6、相关实验">6、相关实验</a><ul>
+          
+      <li>
+        <a href="#61%e9%97%ae%e9%a2%98%e8%a1%a8%e7%a4%ba" aria-label="6.1、问题表示">6.1、问题表示</a></li>
+      <li>
+        <a href="#62text-to-sql%e7%9a%84%e4%b8%8a%e4%b8%8b%e6%96%87%e5%ad%a6%e4%b9%a0" aria-label="6.2、Text-to-SQL的上下文学习">6.2、Text-to-SQL的上下文学习</a></li>
+      <li>
+        <a href="#63text-to-sql%e7%9a%84%e7%9b%91%e7%9d%a3%e5%be%ae%e8%b0%83" aria-label="6.3、Text-to-SQL的监督微调">6.3、Text-to-SQL的监督微调</a>
+      </li>
+    </ul>
+    </li>
+    </ul>
+  </div>
+  </details>
+</div>
+  
+
+  <section><h2 id="1llm技术在text-to-sql上的现状">1、LLM技术在Text-to-SQL上的现状</h2>
+<p>Text-to-SQL解决方案在大型语言模型（LLM）的支持下得到了广泛应用，但是现有的提示工程方法缺乏系统性，阻碍了该领域的发展。</p>
+<p>为了更深入地探讨基于LLM的Text-to-SQL解决方案的提示工程系统化研究，我们需要全面理解和实践，覆盖了不同的LLM、问题表示、示例选择和组织策略，以探索如何与LLM良好配合。具体而言，提示工程分为zero-shot和few-shot场景，在zero-shot场景中，需要研究如何有效地表示自然语言问题，包括融入相关信息如相应数据库模式。在few-shot场景中，有限的示例可供使用，因此需要研究如何选择最有帮助的示例，并恰当地组织到提示中。</p>
+<p>本文还探讨了LLM的上下文学习过程，并研究了zero-shot和few-shot场景中LLM的表现，同时也展示了有监督微调方法的利与弊。本文为基于大型语言模型的Text-to-SQL解决方案的系统化研究提供了有益的参考和指导。</p>
+<h2 id="2问题表示">2、问题表示</h2>
+<p>这里的问题表示是指针对Text-to-SQL任务，设计一个高效的Prompt去激发LLM的Text-to-SQL能力，本质上就是Prompt工程。在zero-shot场景中有五花八门的Prompt模版，这里展示现有文献中四个最具代表性的。此外，再展示一个在 Alpaca中使用的Prompt模板，因为它在监督式微调中非常受欢迎。下表总结了这五种方法：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">问题表示</th>
+<th style="text-align:center">INS</th>
+<th style="text-align:center">RI</th>
+<th style="text-align:center">FK</th>
+<th style="text-align:center">LLMs</th>
+<th style="text-align:center">EM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$\text{BS}_P$</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:center">$\text{TR}_P$</td>
+<td style="text-align:center">$\checkmark$</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">Code-Davinci-002</td>
+<td style="text-align:center">69.0</td>
+</tr>
+<tr>
+<td style="text-align:center">$\text{OD}_P$</td>
+<td style="text-align:center">$\checkmark$</td>
+<td style="text-align:center">$\checkmark$</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">GPT-3.5-Turbo GPT-4</td>
+<td style="text-align:center">70.1</td>
+</tr>
+<tr>
+<td style="text-align:center">$\text{CR}_P$</td>
+<td style="text-align:center">$\checkmark$</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">$\checkmark$</td>
+<td style="text-align:center">Code-Davinci-002 GPT-3.5-Turbo</td>
+<td style="text-align:center">75.6</td>
+</tr>
+<tr>
+<td style="text-align:center">$\text{AS}_P$</td>
+<td style="text-align:center">$\checkmark$</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<p>EX：SQL执行准确率、INS：指令（任务描述）、RI：规则信息（指导性语句，比如“仅输出SQL语句，无需解释”）、FK：外键（数据库的外键信息）</p>
+<h3 id="21基本提示">2.1、基本提示</h3>
+<p>基本提示（Basic Prompt）是一种简单的Prompt模板，它由表模式、以 Q: 为前缀的自然语言问题、以及提示LLM生成SQL的响应前缀 A:SELECT 组成。之所以命名为基本提示，是因为它并未包含任何指令内容。</p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/20231119/1.png" alt=""></p>
+<pre tabindex="0"><code class="language-context" data-lang="context">Table table_name1, columns = [column1, column2, ...]
+...
+Table table_name2, columns = [column1, column2, ...]
+Q: The question
+A: SELECT...(目标SQL)
+</code></pre><h3 id="22文本表示法提示">2.2、文本表示法提示</h3>
+<p>文本表示法提示（Text Representation Prompt）相比于基本提示，它在提示的开头添加了指导LLM的指令。在零样本场景中，它能在 Spider-dev 上实现了69.0%的执行准确率。</p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/20231119/1.png" alt=""></p>
+<pre tabindex="0"><code class="language-context" data-lang="context">The Instruction（e.g. Given the following database schema: ）
+Table table_name1, columns = [column1, column2, ...]
+...
+Table table_name2, columns = [column1, column2, ...]
+Answer the following: The question...
+SELECT...(目标SQL)
+</code></pre><h3 id="23openai-示范提示">2.3、OpenAI 示范提示</h3>
+<p>OpenAI示范提示（OpenAI Demostration Prompt）首次在OpenAI的官方Text-to-SQL演示中使用，它由指令、表模式和问题组成，其中所有信息都用“#”进行注释。与文本表示提示相比，OpenAI示范提示中的指令更具体，而且还有一条规则约束，“仅完成sqlite SQL查询，无需解释”。</p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/20231119/3.png" alt=""></p>
+<pre tabindex="0"><code class="language-context" data-lang="context">### The Instruction
+# SQLite SQL tables, with their properties:
+# 
+# table_name1(column1, column2, ...)
+# ...
+# table_name2(column1, column2, ...)
+#
+### The question...
+SELECT...(目标SQL)
+</code></pre><h3 id="24代码表示提示">2.4、代码表示提示</h3>
+<p>代码表示提示（Code Representation Prompt）是一种基于SQL语法实现Text-to-SQL任务的方式。具体来说，它直接将表创建语句“CREATE TABLE &hellip;”放到Prompt中。相较于其他的问题表示方法，代码表示提示的独特之处在于，它能够提供创建数据库所需的全面信息，例如列名、列类型、主键/外键等。在这样的表示方式下， Code-Davinci-002能够正确预测约75.6%的SQL。</p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/20231119/4.png" alt=""></p>
+<pre tabindex="0"><code class="language-context" data-lang="context">/* Given the following database schema: */
+CREATE TABLE table_name1(
+    column1 type primary key,
+    column2 type, 
+    foreign key(column3) references table_name2(xxx)
+);
+
+CREATE TABLE table_name2(
+    column1 thpe primary key, 
+    column2 type,
+    foreign key(column3) references table_name1(xxx)
+);
+
+/* Answer the following: The question...
+SELECT...(目标SQL)
+</code></pre><h3 id="25alpace指令微调提示">2.5、Alpace指令微调提示</h3>
+<p>Alpace指令微调提示（Alpaca SFT Prompt）是一种用于监督微调的提示方式，它指导LLM按照指示并根据Markdown格式上下文来完成任务。后面在检验监督微调场景中的效果时就采用的是此提示模板。</p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/20231119/5.png" alt=""></p>
+<pre tabindex="0"><code class="language-context" data-lang="context">The description of the Text-to-SQL Task
+
+### Instruction:
+Write a sql to answer the question &#34;The question&#34;
+
+### Input:
+table_name1(column1, column2, ...)
+...
+table_name2(column1, column2, ...)
+
+### Response:
+SELECT...(目标SQL)
+</code></pre><p>以上问题表示方法使大型语言模型（LLM）能够通过zero-shot学习直接输出所需的SQL。然而，在Test-to-SQL任务中，LLM通过上下文学习可以表现更出色，而这只需要在问题表示中提供了少量示例即可。</p>
+<h2 id="3text-to-sql的上下文学习">3、Text-to-SQL的上下文学习</h2>
+<p>在上下文学习中，Text-to-SQL 涉及两个子任务：选择最有帮助的示例、将这些选定的示例组织到问题表示里面去，分别称作“示例选择（Example Selection）”和“示例组织（Example Organization）”。</p>
+<h3 id="31示例选择">3.1、示例选择</h3>
+<p>示例选择（Example Selection）在先前的研究中主要有以下几种策略：</p>
+<ul>
+<li>
+<p><strong>随机选择（Random）</strong>：此策略随机采样$k$个可用候选的示例$Q$，现有的工作已经将其作为示例选择的基准方案。</p>
+</li>
+<li>
+<p><strong>问题相似性选择（Question Similarity Selection）</strong>：此方案选择与目标问题$q$最相似的$k$个示例。具体来说，使用预训练的语言模型（比如BERT等）将示例问题$Q$和目标问题$q$嵌入到同一个向量空间。然后，计算每个&lt;示例问题, 目标问题&gt;对应用预定义的距离度量，如欧氏距离或负余弦相似度。最后，利用𝑘近邻（KNN）算法从$Q$中选择$k$个与目标问题$q$相近的示例。</p>
+</li>
+<li>
+<p><strong>遮蔽问题相似性选择（Masked Question Similarity Selection）</strong>：对于跨领域Text-to-SQL，遮蔽问题相似性选择通过使用掩码标记（MASK）替换所有问题中的表名、列名和值，从而消除领域的特定信息，然后使用最近邻算法计算其嵌入向量的相似性。</p>
+</li>
+<li>
+<p><strong>查询相似性选择（Query Similarity Selection）</strong>：此方案不是计算文本问题之间相似度，而是选择与目标SQL查询最相似的𝑘个示例。具体来说，首先初步使用模型将目标问题$q$转换成SQL语句，然后选择与此SQL最相似的$k$个示例。</p>
+</li>
+</ul>
+<p>上述策略重点是仅使用目标问题或目标SQL来选择示例。然而，上下文学习本质上是通过类比进行学习。在Text-to-SQL的情况下，目标是生成与给定问题匹配的查询，因此大型语言模型应该学习从问题到SQL查询的映射，所以在示例选择过程中，同时考虑目标问题和目标SQL可能更有助Text2SQL任务。</p>
+<h3 id="32示例组织">3.2、示例组织</h3>
+<p>示例组织（Example Organization）在决定上述选定的示例有哪些信息将被组织到问题表示中发挥了关键作用。目前已有的研究中示例组织策略可以总结为两个类别，即完整信息组织和仅SQL组织。在下面的例子中，DATABASE_SCHEMA表示数据库模式，TARGET_QUESTION表示目标问题表示。</p>
+<ul>
+<li>
+<p><strong>完整信息组织（Full-Information Organization）</strong>：此策略将示例组织成与目标问题相同的表示形式。如下图示，给出了两个示例问题及其SQL语句，示例的结构与目标问题表示完全相同，唯一的区别是，给定的示例在“SELECT”后有完整的SQL查询，而目标问题在最后只有“SELECT”标记。</p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/20231119/6.png" alt=""></p>
+</li>
+<li>
+<p><strong>仅SQL组织（SQL-Only Organization）</strong>：在提示中仅包括选定示例的SQL语句，并在前缀中附加指示信息。这种组织方式旨在最大程度地利用有限的Token长度来包括示例数量。然而，它去除了问题和SQL语句之间的映射信息，而这些信息可能很有用，后面的实验也可以证明。</p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/20231119/7.png" alt=""></p>
+</li>
+</ul>
+<p>总之， 完整信息组织包含了示例的全部信息，以确保质量；而仅SQL组织仅保留 SQL 查询以便选择更多示例，侧重于数量。那么是否在示例组织中存在一种更好的质量与数量的权衡呢，这可以进一步优化Text-to-SQL任务。</p>
+<h2 id="4一个新的text-to-sql方案dail-sql">4、一个新的Text-to-SQL方案：DAIL-SQL</h2>
+<p>为了解决上述的问题：仅使用目标问题或目标SQL的相似度来选择示例，一个新的Text-to-SQL方案DAIL-SQL被提出。对于示例选择，受到遮蔽问题相似性选择和查询相似性选择的启发，DAIL同时考虑了问题和查询来选择候选示例。具体来说，DAIL选择首先屏蔽了问题的领域特定词。然后，它根据问题之间的欧几里得距离对候选示例进行排名。同时，它计算了预目标SQL与候选示例SQL之间的相似度，并要求相似度大于预定的阈值。通过这种方式，选择的$k$个示例在问题和SQL上都具有很好的相似性。</p>
+<p>除此之外，为了保留问题和SQL语句之间的映射信息并且提高Token效率，DAIL提出了一种新的示例组织策略：DAIL组织（DAIL Organization），以在质量和数量方面进行权衡。具体来说，如下图所示，DAIL组织包含了示例的问题和相应的SQL语句 ，作为完整信息组织和仅SQL组织之间的折中，DAIL组织保留了question-SQL映射，并通过去除数据库模式信息来减少示例的token长度。</p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/20231119/8.png" alt=""></p>
+<p>在这种提示设计中，LLM 可以更好地应对 Text-to-SQL 任务，而在 Spider 排行榜中，DAIL-SQL 通过 86.2% 的执行准确率刷新了性能。</p>
+<h2 id="5text-to-sql的监督微调">5、Text-to-SQL的监督微调</h2>
+<p>为了在zero-shot 场景中提高 LLM 的性能，现有的Text-to-SQL方法普遍采用的策略是上下文学习，这在上述小节中已有讨论。作为一种替代且富有潜力方案：监督微调，至今还鲜有探讨。与各种语言任务的监督微调类似，我们也可以将其应用于Text-to-SQL领域，以提高LLM在这个下游任务上的性能。后面将直接从实验结果展示监督微调的潜力及其利弊。</p>
+<h2 id="6相关实验">6、相关实验</h2>
+<h3 id="61问题表示">6.1、问题表示</h3>
+<p>下图展示了数据集 Spider-dev 上的不同问题表示的比较。通过比较不同的表示，我们可以观察到 OD 适合所有三种 LLM，并在 GPT-3.5-TURBO 上实现了 75.5% 的执行精度。相比之下，AS 在 GPT-3.5-TURBO 和 TEXT DAVINCI-003 上表现不佳，需要合适的 LLM 才能发挥良好作用。出乎意料的是，GPT-4 对于简单 BS 表现出偏好，这表明强大的 LLM 可以减轻Prompt设计的复杂性。</p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/20231119/9.png" alt=""></p>
+<p><strong>外键</strong>（FK）表示不同关系表之间的关系，这可能有助于Text-to-SQL任务。在评估中，为了检查其效果，可以将外键信息添加到其他表示中，并在下图中对它们进行评估。观察到，外键信息显著提高了LLMs的执行准确性，提高了0.6%到2.9%。这种观察表明，外键对于文本到SQL任务是有帮助的。</p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/20231119/10.png" alt=""></p>
+<p><strong>规则信息</strong>（RI）。CR问题表示模板含有“仅输出SQL语句，无需解释”的规则。为了检查问题表示中“不解释”的规则的影响，下图中将其添加到其他问题表示中。可以观察到添加这一规则始终能够显著提高所有LLMs的效果，其中最显著的改进分别超过了6%和2%。</p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/20231119/11.png" alt=""></p>
+<h3 id="62text-to-sql的上下文学习">6.2、Text-to-SQL的上下文学习</h3>
+<ul>
+<li>
+<p>示例选择：为了验证问题和SQL语句在示例选择中的重要性，我们计算了所选示例的问题和SQL与目标问题和SQL的 Jaccard 相似度。通过比较不同的选择策略，证明了DAIL通常优于其他策略。在 5-shot场景中，基于GPT-4的DAIL实现了 82.4% 的执行准确性。</p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/20231119/12.png" alt=""></p>
+</li>
+<li>
+<p>示例组织。为了比较不同的示例组织策略，在 Spider-dev 和 Spider-Realistic 上的少量示例场景中评估了全信息组织、仅 SQL 组织和 DAIL 组织。下图展示了比较结果，可以观察到使用 DAIL 组织，其在 Spider-dev 上的执行准确率从 72.3% 提高到 83.5%，在 Spider-Realistic 上的执行准确率从 66.5% 提高到 76.0%。</p>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/20231119/13.png" alt=""></p>
+</li>
+</ul>
+<h3 id="63text-to-sql的监督微调">6.3、Text-to-SQL的监督微调</h3>
+<ul>
+<li>Zero-shot场景：下图展示了在Zero-shot场景中，使用各种 LLM 和问题表示的监督微调性能。与微调前的性能相比，它们的性能得到了显著提升。通过比较不同的表示，可以看出 Alpaca SFT 提示在监督微调中具有明显优势，因为它是为这种场景设计的。</li>
+</ul>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/20231119/14.png" alt=""></p>
+<ul>
+<li>Few-shot 场景：经过监督微调后，一个重要问题是：我们能否通过添加上下文示例继续提高开源 LLM 的性能？为了回答这个问题，下表用 0、1、3 和 5 样本提示评估微调后的 LLaMA-7B 和 13B，以便进行清晰比较。出乎意料的是，微调后的 LLM 无法从示例中学习。具体来说，在测试提示中添加上下文示例会导致准确率突然下降，并且添加再多示例也无济于事。可能的原因是 LLM 对Prompt提示过拟合，使得示例变得无用。</li>
+</ul>
+<p><img src="http://pydaxing-public.oss-cn-hangzhou.aliyuncs.com/20231119/15.png" alt=""></p>
+<p>总之，开源 LLM 在文本到 SQL 任务中显示出巨大的潜力，尤其是在监督微调方面。具体来说，经过微调后，它们的性能在zero-shot场景中可与 TEXT-DAVINCI-003 相媲美。然而，与 OpenAI 的 LLM 不同，微调后的 LLM 无法从上下文示例中学习。在微调后如何保持上下文学习能力的问题还有待于未来的研究探索。</p>
+</section>
+
+  
+  
+  <footer class="mt-12 flex flex-wrap">
+     
+    <a
+      class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]"
+      href="https://blog.pydaxing.com/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B"
+      >大模型</a
+    >
+     
+    <a
+      class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]"
+      href="https://blog.pydaxing.com/tags/ai-data-analysis"
+      >AI Data Analysis</a
+    >
+    
+  </footer>
+  
+
+  
+  
+  
+  
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="https://blog.pydaxing.com/post/20231018_codellama/"
+      ><span>Code LlaMA 是怎样练成的: 一文详解代码生成SOTA大模型</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+  
+
+  
+  <div id="waline" style="margin-top: 2em"></div>
+  <script type="module">
+    import { init } from 'https://unpkg.com/@waline/client@v2/dist/waline.mjs';
+    const config = {
+      el: '#waline',
+      lang: 'zh-CN',
+      meta: ['nick', 'mail'],
+      requiredMeta: ['nick', 'mail'],
+      pageSize: 10,
+      avatar: 'monsterid',
+      wordLimit: 100,
+      dark: 'auto',
+      serverURL: 'https://comment.pydaxing.com/.netlify/functions/comment/'
+    };
+    setTimeout(function() {
+      init(config);
+      var poweredby = document.querySelector('.wl-power');
+      poweredby.remove();
+    }, 500);
+  </script>
+  
+
+
+  
+  
+
+  
+  
+</article>
+
+
+    </main>
+
+    <footer
+  class="opaco mx-auto flex h-[4.5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
+>
+  <div class="mr-auto">
+    &copy; 2023
+    <a class="link" href="https://blog.pydaxing.com">冷眸</a>
+  </div>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >Powered by Hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >✎ Paper</a
+  >
+</footer>
+
+  </body>
+</html>
