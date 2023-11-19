@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>AI Data Analysis on 冷眸</title>
-    <link>https://blog.pydaxing.com/tags/ai-data-analysis/</link>
+    <link>https://lengm.cn/tags/ai-data-analysis/</link>
     <description>Recent content in AI Data Analysis on 冷眸</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 18 Nov 2023 12:18:00 +0000</lastBuildDate><atom:link href="https://blog.pydaxing.com/tags/ai-data-analysis/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Nov 2023 12:18:00 +0000</lastBuildDate><atom:link href="https://lengm.cn/tags/ai-data-analysis/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>深入解析LLM Text-2-SQL：从Prompt到Finetune全网最详尽攻略</title>
-      <link>https://blog.pydaxing.com/post/20231119_nl2sql_prompt2finetune/</link>
+      <link>https://lengm.cn/post/20231119_nl2sql_prompt2finetune/</link>
       <pubDate>Sat, 18 Nov 2023 12:18:00 +0000</pubDate>
       
-      <guid>https://blog.pydaxing.com/post/20231119_nl2sql_prompt2finetune/</guid>
+      <guid>https://lengm.cn/post/20231119_nl2sql_prompt2finetune/</guid>
       <description>1、LLM技术在Text-to-SQL上的现状 Text-to-SQL解决方案在大型语言模型（LLM）的支持下得到了广泛应用，但是现有的提示工程方法缺乏系统性，阻碍了该领域的发展。
 为了更深入地探讨基于LLM的Text-to-SQL解决方案的提示工程系统化研究，我们需要全面理解和实践，覆盖了不同的LLM、问题表示、示例选择和组织策略，以探索如何与LLM良好配合。具体而言，提示工程分为zero-shot和few-shot场景，在zero-shot场景中，需要研究如何有效地表示自然语言问题，包括融入相关信息如相应数据库模式。在few-shot场景中，有限的示例可供使用，因此需要研究如何选择最有帮助的示例，并恰当地组织到提示中。
 本文还探讨了LLM的上下文学习过程，并研究了zero-shot和few-shot场景中LLM的表现，同时也展示了有监督微调方法的利与弊。本文为基于大型语言模型的Text-to-SQL解决方案的系统化研究提供了有益的参考和指导。

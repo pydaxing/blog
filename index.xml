@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>冷眸</title>
-    <link>https://blog.pydaxing.com/</link>
+    <link>https://lengm.cn/</link>
     <description>Recent content on 冷眸</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 18 Nov 2023 12:18:00 +0000</lastBuildDate><atom:link href="https://blog.pydaxing.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Nov 2023 12:18:00 +0000</lastBuildDate><atom:link href="https://lengm.cn/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>深入解析LLM Text-2-SQL：从Prompt到Finetune全网最详尽攻略</title>
-      <link>https://blog.pydaxing.com/post/20231119_nl2sql_prompt2finetune/</link>
+      <link>https://lengm.cn/post/20231119_nl2sql_prompt2finetune/</link>
       <pubDate>Sat, 18 Nov 2023 12:18:00 +0000</pubDate>
       
-      <guid>https://blog.pydaxing.com/post/20231119_nl2sql_prompt2finetune/</guid>
+      <guid>https://lengm.cn/post/20231119_nl2sql_prompt2finetune/</guid>
       <description>1、LLM技术在Text-to-SQL上的现状 Text-to-SQL解决方案在大型语言模型（LLM）的支持下得到了广泛应用，但是现有的提示工程方法缺乏系统性，阻碍了该领域的发展。
 为了更深入地探讨基于LLM的Text-to-SQL解决方案的提示工程系统化研究，我们需要全面理解和实践，覆盖了不同的LLM、问题表示、示例选择和组织策略，以探索如何与LLM良好配合。具体而言，提示工程分为zero-shot和few-shot场景，在zero-shot场景中，需要研究如何有效地表示自然语言问题，包括融入相关信息如相应数据库模式。在few-shot场景中，有限的示例可供使用，因此需要研究如何选择最有帮助的示例，并恰当地组织到提示中。
 本文还探讨了LLM的上下文学习过程，并研究了zero-shot和few-shot场景中LLM的表现，同时也展示了有监督微调方法的利与弊。本文为基于大型语言模型的Text-to-SQL解决方案的系统化研究提供了有益的参考和指导。
@@ -24,10 +24,10 @@ Table table_name1, columns = [column1, column2, ...] ... Table table_name2, colu
     
     <item>
       <title>Code LlaMA 是怎样练成的: 一文详解代码生成SOTA大模型</title>
-      <link>https://blog.pydaxing.com/post/20231018_codellama/</link>
+      <link>https://lengm.cn/post/20231018_codellama/</link>
       <pubDate>Mon, 16 Oct 2023 19:12:17 +0000</pubDate>
       
-      <guid>https://blog.pydaxing.com/post/20231018_codellama/</guid>
+      <guid>https://lengm.cn/post/20231018_codellama/</guid>
       <description>1、简介 2023年，Meta AI发布了一系列的Code Llama，这些Code Llama都是基于Llama 2的大型语言模型，专门用于生成代码。该项目提供了多个版本的模型，包括基础模型（Code Llama）、针对Python的专业化模型（Code Llama - Python）以及可以根据指令进行操作的模型（Code Llama - Instruct）。这些模型在开放模型领域提供了最先进的性能、填充能力，能够支持大规模的输入上下文，并具备零样本学习（zero-shot learning）编程任务指令跟随的能力。
 2、背景 使用大规模的领域内数据集可以显著提高模型在自然语言和领域特定语言、专业术语等方面的理解能力，进而在程序合成、代码补全、调试和生成文档等方向的应用中取得更好的性能。目前已有的代码大模型方案存在一些问题，而Codellama提供了相应的解决方案。
 代码能力训练： 基础模型如AlphaCode、InCoder和StarCoder等模型只在代码数据上进行预训练，而Codex是基于通用语言模型微调而来的。相比于只在代码数据上进行预训练的模型，Codellama基于Llama2在通用数据和代码数据上进行了预训练，实验证明其性能更好。
@@ -41,10 +41,10 @@ Table table_name1, columns = [column1, column2, ...] ... Table table_name2, colu
     
     <item>
       <title>一文从入门到精通Prompt工程</title>
-      <link>https://blog.pydaxing.com/post/prompt-%E5%B7%A5%E7%A8%8B%E8%B0%83%E7%A0%94/</link>
+      <link>https://lengm.cn/post/prompt-%E5%B7%A5%E7%A8%8B%E8%B0%83%E7%A0%94/</link>
       <pubDate>Sat, 15 Apr 2023 18:12:17 +0000</pubDate>
       
-      <guid>https://blog.pydaxing.com/post/prompt-%E5%B7%A5%E7%A8%8B%E8%B0%83%E7%A0%94/</guid>
+      <guid>https://lengm.cn/post/prompt-%E5%B7%A5%E7%A8%8B%E8%B0%83%E7%A0%94/</guid>
       <description>最近在了解大语言模型相关一些技术，Prompt工程成了一个比较热的话题，甚至有公司还有prompt工程师，所以在这里对prompt做一个系统性的调研和总结，一起学习下。
 1、Prompt工程及必要性 1.1、什么是 prompt NLP之前的发展可以概括为特征工程、结构工程和目标工程。
 特征工程：监督学习依赖特征的好坏，深度学习之前需要相关研究人员或者专业人士利用自己扎实的领域知识从原始数据中定义并提取有用的特征供 模型学习。
@@ -67,19 +67,19 @@ Table table_name1, columns = [column1, column2, ...] ... Table table_name2, colu
     
     <item>
       <title>About</title>
-      <link>https://blog.pydaxing.com/about/</link>
+      <link>https://lengm.cn/about/</link>
       <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.pydaxing.com/about/</guid>
+      <guid>https://lengm.cn/about/</guid>
       <description>Thinking&amp;hellip;</description>
     </item>
     
     <item>
       <title></title>
-      <link>https://blog.pydaxing.com/archive/</link>
+      <link>https://lengm.cn/archive/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.pydaxing.com/archive/</guid>
+      <guid>https://lengm.cn/archive/</guid>
       <description></description>
     </item>
     
